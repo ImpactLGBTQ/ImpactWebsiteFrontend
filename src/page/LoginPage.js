@@ -1,7 +1,7 @@
 import * as React from "react";
 import MainPage from "./MainPage";
 import $ from 'jquery';
-
+import Cookies from 'js-cookie'
 
 function getCookie(name) {
     var cookieValue = null;
@@ -70,10 +70,8 @@ export class LoginForm extends React.Component {
                 crossdomain: true,
                 data: data,
                 success: function(data) {
-
-                },
-                error: function (xhr, status, error) {
-                    alert("Error: "+error);
+                    // Set the token cookie
+                    Cookies.set('dsf_token', data.token);
                 },
                 statusCode: {
                     401: () =>
