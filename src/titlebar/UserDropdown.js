@@ -33,22 +33,22 @@ class UserDropdown extends React.Component {
         if (this.state.logged_in) {
             return (
                 <div className="dropdown-menu">
-                    <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" text={this.state.user_username}/>
-                    <div className="dropdown-menu"
-                         aria-labelledby="dropdownMenuButton">
-                        <Button className="header_btn dropdown-item menu_btn"
-                                onClick="profile_page()" text="Profile"/>
+                    <button aria-haspopup="true" aria-expanded="false" className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown"> {this.state.user_username}</button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button className="header_btn dropdown-item menu_btn"
+                                onClick="profile_page()" >Profile</button>
 
-                        <Button className="header_btn dropdown-item menu_btn"
-                                onClick="make_post()" text="Make a post"/>
+                        <button className="header_btn dropdown-item menu_btn"
+                                onClick="make_post()">Make a post</button>
 
                         <div className="dropdown-divider"/>
-                        <Button className="header_btn dropdown-item menu_btn"
-                                onClick="logout()" text="Logout"/>
+                        <button className="header_btn dropdown-item menu_btn"
+                                onClick="logout()" >Logout</button>
 
                     </div>
-                </div>);
+                </div>
+            );
         }
         else return (<Button onClick={() => to_page(<LoginPage user={this.state.user} />)} text="Login" />);
 

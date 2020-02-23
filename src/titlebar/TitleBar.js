@@ -56,7 +56,9 @@ export default class TitleBar extends React.Component {
                       <Button onClick="whats_on()" text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
                   </nav>
-                  <UserDropdown />
+                  <div>
+                    <UserDropdown />
+                  </div>
               </div>
             </div>
         );
