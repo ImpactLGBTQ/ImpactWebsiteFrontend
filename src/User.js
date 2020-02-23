@@ -40,6 +40,24 @@ class User {
             }
         )
     }
+    // Logs the user out
+    logout() {
+        // Send ajax to logout
+        $.ajax({
+            url: 'http://localhost:8000/api/auth/logmeout',
+            headers: { 'Authorization': 'Token '+this.token},
+            success: () => {
+                Cookies.remove('cred_token');
+                // Update self
+                this.setUsername(null);
+                this.setUUID(null);
+                this.setToken(null);
+            }
+    });
+
+
+
+    }
 
     stateChanged() {
         this.stateChangeCallback && this.stateChangeCallback();
