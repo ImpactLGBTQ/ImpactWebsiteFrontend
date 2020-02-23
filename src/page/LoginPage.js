@@ -43,7 +43,7 @@ export class LoginForm extends React.Component {
                 async: true,
                 crossdomain: true,
                 data: data,
-                success: function(data) {
+                success: (data) => {
                     // Set the token cookie
                     Cookies.set('cred_token', data.token);
                     this.state.user.setToken(data);

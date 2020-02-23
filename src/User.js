@@ -2,6 +2,7 @@
 
 import $ from 'jquery';
 import get_csrf from "./csrf";
+import Cookies from 'js-cookie';
 
 class User {
     username;

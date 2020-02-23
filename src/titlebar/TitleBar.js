@@ -28,7 +28,6 @@ export default class TitleBar extends React.Component {
         const user = new User();
 
         this.state = {
-            auth_token: token,
             csrf_token: null,
             logged_in: !!user.getToken(),
             user: user
@@ -67,21 +66,18 @@ export default class TitleBar extends React.Component {
                               <div className="dropdown">
                                   <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
                                           data-toggle="dropdown" text={this.state.username} />
-                                  <div className="dropdown-menu" style="color: black"
+                                  <div className="dropdown-menu" 
                                        aria-labelledby="dropdownMenuButton">
-                                      <button className="header_btn dropdown-item menu_btn"
-                                              onClick="profile_page()
-">Profile
-                                      </button>
-                                      <button className="header_btn dropdown-item menu_btn"
-                                              onClick="make_post()
-">Make a post
-                                      </button>
+                                      <Button className="header_btn dropdown-item menu_btn"
+                                              onClick="profile_page()" text="Profile" />
+
+                                      <Button className="header_btn dropdown-item menu_btn"
+                                              onClick="make_post()" text="Make a post" />
+
                                       <div className="dropdown-divider"/>
-                                      <button className="header_btn dropdown-item menu_btn"
-                                              onClick="logout()
-">Logout
-                                      </button>
+                                      <Button className="header_btn dropdown-item menu_btn"
+                                              onClick="logout()" text="Logout" />
+
                                   </div>
                               </div>
                               :
@@ -100,25 +96,25 @@ export default class TitleBar extends React.Component {
 /*
 
                   <div className="dropdown">
-                      <button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
+                      <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
                               data-toggle="dropdown"
                       >{ }</button>
-                      <div className="dropdown-menu" style="color: black" aria-labelledby="dropdownMenuButton">
-                          <button style="color: black" className="header_btn dropdown-item menu_btn"
+                      <div className="dropdown-menu" >
+                          <button 
                                   onClick="profile_page()
 ">Profile
                           </button>
-                          <button style="color: black" className="header_btn dropdown-item menu_btn" onClick="make_post()
+                          <button make_post()
 ">Make a post
                           </button>
 
                           <div className="dropdown-divider"></div>
-                          <button style="color: black" className="header_btn dropdown-item menu_btn" onClick="logout()
+                          <button logout()
 ">Logout
                           </button>
                       </div>
                   </div>
                   {% else %}
-                  <button className="header_btn" onClick="login_portal()">Login</button>
+                  <Button className="header_btn" onClick="login_portal()">Login</button>
                   {% endif %}
  */
