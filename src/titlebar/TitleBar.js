@@ -8,11 +8,11 @@ import FAQPage from "../page/FAQPage";
 import WhoAreWe from "../page/WhoAreWe";
 import Signposting from "../page/Signposting";
 import LoginPage from "../page/LoginPage";
-import $ from "jquery";
 import get_csrf from "../csrf";
 import User from "../User";
+import UserDropdown from "./UserDropdown";
 
-function to_page(page) {
+export function to_page(page) {
     // Call an api here to get content
     render(page, document.getElementById(MainPage.getId()));
 }
@@ -24,21 +24,9 @@ export default class TitleBar extends React.Component {
     constructor(props) {
         super(props);
 
-        // Setup username
-        const user = new User(() => {
-            this.setState(
-                {
-                    user_username: user.getUsername()
-                });
-            user.setStateChangeCallback(null);
-        });
-
         this.state = {
             csrf_token: null,
-            logged_in: !!user.getToken(),
-            user_username: "Loading..."
         };
-
 
         // set csrf token
         get_csrf(function(token) {
@@ -68,30 +56,7 @@ export default class TitleBar extends React.Component {
                       <Button onClick="whats_on()" text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
                   </nav>
-                      {
-                          this.state.logged_in?
-                              <div className="dropdown">
-                                  <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
-                                          data-toggle="dropdown" text={this.state.user_username} />
-                                  <div className="dropdown-menu" 
-                                       aria-labelledby="dropdownMenuButton">
-                                      <Button className="header_btn dropdown-item menu_btn"
-                                              onClick="profile_page()" text="Profile" />
-
-                                      <Button className="header_btn dropdown-item menu_btn"
-                                              onClick="make_post()" text="Make a post" />
-
-                                      <div className="dropdown-divider"/>
-                                      <Button className="header_btn dropdown-item menu_btn"
-                                              onClick="logout()" text="Logout" />
-
-                                  </div>
-                              </div>
-                              :
-                          <Button onClick={() => to_page(<LoginPage user={this.state.user} />)} text="Login" />
-                      }
-
-
+                  <UserDropdown />
               </div>
             </div>
         );
