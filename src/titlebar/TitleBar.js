@@ -91,7 +91,7 @@ export default class TitleBar extends React.Component {
                                   </div>
                               </div>
                               :
-                          <Button onClick={() => to_page(<LoginPage />)} text="Login" />
+                          <Button onClick={() => to_page(<LoginPage user={this.state.user} />)} text="Login" />
                       }
 
                   </nav>
