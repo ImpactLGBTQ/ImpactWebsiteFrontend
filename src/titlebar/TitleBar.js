@@ -10,6 +10,7 @@ import Signposting from "../page/Signposting";
 import LoginPage from "../page/LoginPage";
 import $ from "jquery";
 import get_csrf from "../csrf";
+import User from "../User";
 
 function to_page(page) {
     // Call an api here to get content
@@ -23,12 +24,22 @@ export default class TitleBar extends React.Component {
     constructor(props) {
         super(props);
 
+
+        const user = new User();
+        const token = Cookies.get('cred_token');
+
+        if (token) {
+            user.setToken();
+            user.fetchData();
+        }
+
         this.state = {
-            auth_token: Cookies.get('cred_token'),
+            auth_token: token,
             csrf_token: null,
             logged_in: false,
-            username: null,
+            user: user
         };
+
 
         // set csrf token
         get_csrf(function(token) {

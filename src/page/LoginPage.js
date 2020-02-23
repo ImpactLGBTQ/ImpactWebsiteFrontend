@@ -2,6 +2,7 @@ import * as React from "react";
 import MainPage from "./MainPage";
 import $ from 'jquery';
 import Cookies from 'js-cookie'
+import User from "../User";
 
 
 
@@ -15,6 +16,7 @@ export class LoginForm extends React.Component {
 
         this.state = {
             invalidCredentials: false,
+            user: this.props.user ? this.props.user : new User()
         };
     }
 
@@ -44,6 +46,9 @@ export class LoginForm extends React.Component {
                 success: function(data) {
                     // Set the token cookie
                     Cookies.set('cred_token', data.token);
+                    this.state.user.setToken(data);
+                    this.state.user.fetchData();
+
                 },
                 statusCode: {
                     401: () =>

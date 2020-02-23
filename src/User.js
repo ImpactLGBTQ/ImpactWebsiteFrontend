@@ -15,6 +15,7 @@ class User {
 
     // Fetches data about itself from the backend
     fetchData() {
+        alert("Fetching data with token: "+this.token);
         $.ajax({
                 url: 'http://localhost:8000/api/user',
                 crossDomain: true,
@@ -39,3 +40,4 @@ class User {
 }
 
 
+export default User;
