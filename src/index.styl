@@ -1,0 +1,104 @@
+
+
+/*==============================================================================
+ =     Impact group website
+ =     Copyright (C) 2019  Natasha England-Elbro
+ =
+ =     This program is free software: you can redistribute it and/or modify
+ =     it under the terms of the GNU General Public License as published by
+ =     the Free Software Foundation, either version 3 of the License, or
+ =     (at your option) any later version.
+ =
+ =     This program is distributed in the hope that it will be useful,
+ =     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ =     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ =     GNU General Public License for more details.
+ =
+ =     You should have received a copy of the GNU General Public License
+ =     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ =============================================================================*/
+
+// Stylus file for default/standard classes (like standard_form for flex form)
+@require "./colours.styl"
+
+
+.title_text {
+  margin-left 0
+  margin-right 0
+  margin-bottom: 15px;
+  margin-top 0;
+  padding-top 5%
+  color tarkalian-pink
+  text-align center
+  border-bottom 1px solid light-grey
+}
+
+a {
+  color link-colour
+}
+
+.body {
+  padding-top 110px
+  @media only screen and (max-width 600px) {
+    width 90%
+    margin-left 5%
+    margin-right 5%
+  }
+  margin-left 25%
+  margin-right 25%
+  width 50%
+
+}
+
+.standard_form {
+
+  .form_btn {
+    margin-top 35px
+    margin-bottom 0
+    background button-background
+    color button-foreground
+    border 2px black
+    height 30px
+    width 50%
+    margin-left 25%
+    margin-right 25%
+    border-radius 4px
+    cursor pointer
+    transition 0.4s
+
+  }
+  .form_btn:hover {
+    background button-light-background
+    border-radius 8px
+    color black
+  }
+
+  .standard_form_row {
+    padding-bottom 5px
+
+    input {
+      width 100%
+      box-sizing border-box
+      padding 20px 5px 20px 5px
+      border-radius 5px
+    }
+  }
+}
+.form_container {
+  width 45%
+  position absolute
+  border 1px solid edible-blue
+  padding 40px 50px 50px 60px
+  background-color edible-blue
+  background-blend-mode lighten
+  background-position center
+  border-radius 6px
+}
+
+* {
+  font-family 'Titillium Web', sans-serif !important
+}
+
+
+
+
