@@ -24,13 +24,12 @@ export default class TitleBar extends React.Component {
     constructor(props) {
         super(props);
 
-
         const user = new User();
 
         this.state = {
             csrf_token: null,
             logged_in: !!user.getToken(),
-            user: user
+            user_username: "Loading..."
         };
 
 
@@ -61,11 +60,12 @@ export default class TitleBar extends React.Component {
                       <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
                       <Button onClick="whats_on()" text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
+                  </nav>
                       {
                           this.state.logged_in?
                               <div className="dropdown">
                                   <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
-                                          data-toggle="dropdown" text={this.state.username} />
+                                          data-toggle="dropdown" text={this.state.user_username} />
                                   <div className="dropdown-menu" 
                                        aria-labelledby="dropdownMenuButton">
                                       <Button className="header_btn dropdown-item menu_btn"
@@ -84,7 +84,7 @@ export default class TitleBar extends React.Component {
                           <Button onClick={() => to_page(<LoginPage user={this.state.user} />)} text="Login" />
                       }
 
-                  </nav>
+
               </div>
             </div>
         );

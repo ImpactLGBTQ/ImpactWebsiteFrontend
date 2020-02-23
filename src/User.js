@@ -8,13 +8,15 @@ class User {
     username;
     uuid;
     token;
+    stateChangeCallback;
 
-    constructor() {
+    constructor(state_change_callback = null) {
         // Try and get the token
         this.token = Cookies.get('cred_token');
 
         // Fetch if token exists
         this.token && this.fetchData();
+
 
     }
 
@@ -25,7 +27,6 @@ class User {
 
     // Fetches data about itself from the backend
     fetchData() {
-        alert("Fetching data with token: "+this.token);
         $.ajax({
                 url: 'http://localhost:8000/api/user',
                 crossDomain: true,
@@ -41,12 +42,17 @@ class User {
         this.setUUID(json_data.uuid);
     }
 
-    setToken(set) {this.token = set}
+    stateChanged() {
+        this.stateChangeCallback && this.stateChangeCallback();
+    }
+
+    setToken(set) {this.token = set; this.stateChangeCallback()}
     getToken() { return this.token}
     getUUID() {return this.uuid}
-    setUUID(set) {this.uuid = set}
-    setUsername(set) {this.username = set}
+    setUUID(set) {this.uuid = set; this.stateChangeCallback()}
+    setUsername(set) {this.username = set;  this.stateChangeCallback()}
     getUsername() {return this.username}
+    setStateChangeCallback(set) {this.stateChangeCallback = set}
 }
 
 
