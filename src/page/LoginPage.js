@@ -3,6 +3,36 @@ import MainPage from "./MainPage";
 import $ from 'jquery';
 
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = $.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
 export class LoginForm extends React.Component {
 
     constructor(props) {
@@ -30,12 +60,15 @@ export class LoginForm extends React.Component {
         $.ajax(
             {
                 type: "POST",
-                url: "/backend/api/auth/logmein",
+                url: "http://localhost:8000/api/auth/logmein/",
+                dataType: 'json',
                 async: true,
+                crossdomain: true,
+                contentType: 'application/json',
                 data: data,
                 success: () => alert("Logged in!"),
                 error: function (xhr, status, error) {
-                    alert(error);
+                    alert("Error: "+error);
                 }
             }
         );
