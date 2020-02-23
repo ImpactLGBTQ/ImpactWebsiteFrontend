@@ -12,6 +12,7 @@ class UserDropdown extends React.Component {
     constructor(props) {
         super(props);
 
+
         // Setup username
         const user = new User(() => {
             this.setState(
@@ -19,14 +20,14 @@ class UserDropdown extends React.Component {
                     user_username: user.getUsername()
                 });
             this.setState({
-                logged_in: true
+                logged_in: !!user.getToken()
             });
-            user.setStateChangeCallback(null);
         });
 
         this.state = {
             logged_in: !!user.getToken(),
-            user_username: "Loading..."
+            user_username: "Loading...",
+            user: user,
         };
 
     }
@@ -46,7 +47,7 @@ class UserDropdown extends React.Component {
                     </Dropdown.Item>
 
                     <Dropdown.Divider />
-                    <Dropdown.Item bsPrefix="header_btn" onClick="logout()" >
+                    <Dropdown.Item bsPrefix="header_btn" onClick={() => this.state.user.logout()} >
                         Logout
                     </Dropdown.Item>
 

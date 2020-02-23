@@ -22,8 +22,10 @@ class User {
     }
 
     // Attempts to log in with the provided token asynchronusly calling the callback with the result
-    login(username, password, callback) {
-
+    login(data) {
+        Cookies.set('cred_token', data.token);
+        this.state.user.setToken(data);
+        this.state.user.fetchData();
     }
 
     // Fetches data about itself from the backend
@@ -36,6 +38,7 @@ class User {
                 success: (data) => {
                     this.setUsername(data.username);
                     this.setUUID(data.uuid);
+                    this.stateChanged();
                 }
             }
         )
@@ -52,7 +55,9 @@ class User {
                 this.setUsername(null);
                 this.setUUID(null);
                 this.setToken(null);
-            }
+                this.stateChanged();
+            },
+            error: (xhr, code, err) => console.log("Error signing out: "+err),
     });
 
 
@@ -63,11 +68,11 @@ class User {
         this.stateChangeCallback && this.stateChangeCallback();
     }
 
-    setToken(set) {this.token = set; this.stateChanged()}
+    setToken(set) {this.token = set; }
     getToken() { return this.token}
     getUUID() {return this.uuid}
-    setUUID(set) {this.uuid = set; this.stateChanged()}
-    setUsername(set) {this.username = set;  this.stateChanged()}
+    setUUID(set) {this.uuid = set; }
+    setUsername(set) {this.username = set; }
     getUsername() {return this.username}
     setStateChangeCallback(set) {this.stateChangeCallback = set}
 }
