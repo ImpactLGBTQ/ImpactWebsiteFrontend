@@ -25,18 +25,17 @@ export class LoginForm extends React.Component {
     submitHandler(event) {
         event.preventDefault();
 
-
         const data = JSON.stringify({"username": this.state.username, "password": this.state.password});
 
         $.ajax(
             {
                 type: "POST",
-                url: "localhost:8000/api/auth/logmein",
+                url: "/backend/api/auth/logmein",
                 async: true,
                 data: data,
                 success: () => alert("Logged in!"),
                 error: function (xhr, status, error) {
-                    alert(xhr.responseText);
+                    alert(error);
                 }
             }
         );
