@@ -19,24 +19,18 @@ function to_page(page) {
 
 
 export default class TitleBar extends React.Component {
-    title_buttons = [{"text": "Home"}];
+    //title_buttons = [{"text": "Home"}];
 
     constructor(props) {
         super(props);
 
 
         const user = new User();
-        const token = Cookies.get('cred_token');
-
-        if (token) {
-            user.setToken();
-            user.fetchData();
-        }
 
         this.state = {
             auth_token: token,
             csrf_token: null,
-            logged_in: false,
+            logged_in: !!user.getToken(),
             user: user
         };
 

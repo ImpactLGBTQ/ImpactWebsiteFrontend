@@ -8,6 +8,15 @@ class User {
     uuid;
     token;
 
+    constructor() {
+        // Try and get the token
+        this.token = Cookies.get('cred_token');
+
+        // Fetch if token exists
+        this.token && this.fetchData();
+
+    }
+
     // Attempts to log in with the provided token asynchronusly calling the callback with the result
     login(username, password, callback) {
 
