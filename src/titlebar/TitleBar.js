@@ -24,7 +24,14 @@ export default class TitleBar extends React.Component {
     constructor(props) {
         super(props);
 
-        const user = new User();
+        // Setup username
+        const user = new User(() => {
+            this.setState(
+                {
+                    user_username: user.getUsername()
+                });
+            user.setStateChangeCallback(null);
+        });
 
         this.state = {
             csrf_token: null,

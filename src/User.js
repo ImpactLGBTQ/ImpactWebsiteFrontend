@@ -17,6 +17,7 @@ class User {
         // Fetch if token exists
         this.token && this.fetchData();
 
+        this.stateChangeCallback = state_change_callback;
 
     }
 
@@ -32,25 +33,23 @@ class User {
                 crossDomain: true,
                 headers: { 'Authorization': 'Token '+this.token},
                 datatype: 'json',
-                success: (data) => this.setData(data),
+                success: (data) => {
+                    this.setUsername(data.username);
+                    this.setUUID(data.uuid);
+                }
             }
         )
-    }
-    // Sets up self with the passed json data
-    setData(json_data) {
-        this.setUsername(json_data.username);
-        this.setUUID(json_data.uuid);
     }
 
     stateChanged() {
         this.stateChangeCallback && this.stateChangeCallback();
     }
 
-    setToken(set) {this.token = set; this.stateChangeCallback()}
+    setToken(set) {this.token = set; this.stateChanged()}
     getToken() { return this.token}
     getUUID() {return this.uuid}
-    setUUID(set) {this.uuid = set; this.stateChangeCallback()}
-    setUsername(set) {this.username = set;  this.stateChangeCallback()}
+    setUUID(set) {this.uuid = set; this.stateChanged()}
+    setUsername(set) {this.username = set;  this.stateChanged()}
     getUsername() {return this.username}
     setStateChangeCallback(set) {this.stateChangeCallback = set}
 }
