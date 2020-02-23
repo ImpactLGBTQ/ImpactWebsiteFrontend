@@ -3,34 +3,6 @@ import MainPage from "./MainPage";
 import $ from 'jquery';
 import Cookies from 'js-cookie'
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = $.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
 
 
 export class LoginForm extends React.Component {
@@ -42,8 +14,8 @@ export class LoginForm extends React.Component {
         this.submitHandler = this.submitHandler.bind(this);
 
         this.state = {
-            invalidCredentials: false
-        }
+            invalidCredentials: false,
+        };
     }
 
     inputChange(event) {
@@ -71,7 +43,7 @@ export class LoginForm extends React.Component {
                 data: data,
                 success: function(data) {
                     // Set the token cookie
-                    Cookies.set('dsf_token', data.token);
+                    Cookies.set('cred_token', data.token);
                 },
                 statusCode: {
                     401: () =>

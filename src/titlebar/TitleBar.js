@@ -8,18 +8,52 @@ import FAQPage from "../page/FAQPage";
 import WhoAreWe from "../page/WhoAreWe";
 import Signposting from "../page/Signposting";
 import LoginPage from "../page/LoginPage";
+import $ from "jquery";
 
 function to_page(page) {
     // Call an api here to get content
     render(page, document.getElementById(MainPage.getId()));
 }
 
+// Takes a callback and returns the csrf token through it
+function get_csrf(callback) {
+    var csrf = Cookies.get('csrf_token');
+    if (!csrf) {
+        // Get the token if not stored
+        $.ajax({
+            url: 'localhost:8000/api/csrf',
+            success: function (data) {
+                // Store it and callback
+                Cookies.set('csrf_token', data);
+                callback(data);
+            },
+            error: (xhr, status, error) => console.log("ERROR GETTING CRSF TOKEN: "+error),
+        });
+    } else callback(csrf);
+}
 
 export default class TitleBar extends React.Component {
     title_buttons = [{"text": "Home"}];
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            auth_token: Cookies.get('cred_token'),
+            csrf_token: null,
+            logged_in: false,
+            username: null,
+        };
+
+        // set csrf token
+        get_csrf(function(token) {
+            this.setState(
+                {
+                    csrf_token: token
+                }
+            )
+        });
+
     }
 
     render() {
@@ -38,7 +72,32 @@ export default class TitleBar extends React.Component {
                       <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
                       <Button onClick="whats_on()" text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
-                      <Button onClick={() => to_page(<LoginPage />)} text="Login" />
+                      {
+                          this.state.logged_in?
+                              <div className="dropdown">
+                                  <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
+                                          data-toggle="dropdown" text={this.state.username} />
+                                  <div className="dropdown-menu" style="color: black"
+                                       aria-labelledby="dropdownMenuButton">
+                                      <button className="header_btn dropdown-item menu_btn"
+                                              onClick="profile_page()
+">Profile
+                                      </button>
+                                      <button className="header_btn dropdown-item menu_btn"
+                                              onClick="make_post()
+">Make a post
+                                      </button>
+                                      <div className="dropdown-divider"/>
+                                      <button className="header_btn dropdown-item menu_btn"
+                                              onClick="logout()
+">Logout
+                                      </button>
+                                  </div>
+                              </div>
+                              :
+                          <Button onClick={() => to_page(<LoginPage />)} text="Login" />
+                      }
+
                   </nav>
               </div>
             </div>
