@@ -40,6 +40,10 @@ export class LoginForm extends React.Component {
 
         this.inputChange = this.inputChange.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
+
+        this.state = {
+            invalidCredentials: false
+        }
     }
 
     inputChange(event) {
@@ -64,11 +68,21 @@ export class LoginForm extends React.Component {
                 dataType: 'json',
                 async: true,
                 crossdomain: true,
-                contentType: 'application/json',
                 data: data,
-                success: () => alert("Logged in!"),
+                success: function(data) {
+
+                },
                 error: function (xhr, status, error) {
                     alert("Error: "+error);
+                },
+                statusCode: {
+                    401: () =>
+                        // Invalid credentials
+                        this.setState(
+                            {
+                                invalidCredentials: true
+                            }
+                        )
                 }
             }
         );
@@ -79,6 +93,12 @@ export class LoginForm extends React.Component {
         return (
         <form className="standard_form" onSubmit={this.submitHandler}>
             <div className="form-group">
+                {
+                    this.state.invalidCredentials ?
+                        <div className="alert alert-danger">Invalid username or password</div>
+                        :
+                        <div/>
+                }
                 <label>
                     Username
                     <input type="text" name="username" onChange={this.inputChange}/>
