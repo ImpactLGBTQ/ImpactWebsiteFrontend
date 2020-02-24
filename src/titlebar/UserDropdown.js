@@ -41,12 +41,12 @@ class UserDropdown extends React.Component {
                     <Dropdown.Item>
                         Profile
                     </Dropdown.Item>
-
                     <Dropdown.Item>
                         Make a post
                     </Dropdown.Item>
 
                     <Dropdown.Divider />
+
                     <Dropdown.Item onClick={() => this.state.user.logout()} >
                         Logout
                     </Dropdown.Item>
