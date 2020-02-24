@@ -41,7 +41,7 @@ a {
     margin-right: 5%;
   }
 }
-.standard_form .form_btn {
+.form_btn {
   margin-top: 35px;
   margin-bottom: 0;
   background: button-background;
@@ -55,30 +55,14 @@ a {
   cursor: pointer;
   transition: 0.4s;
 }
-.standard_form .form_btn:hover {
+.form_btn:hover {
   background: button-light-background;
   border-radius: 8px;
   color: #000;
 }
-.standard_form .standard_form_row {
-  padding-bottom: 5px;
-}
-.standard_form .standard_form_row input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20px 5px 20px 5px;
-  border-radius: 5px;
-}
-.form_container {
-  width: 45%;
-  position: absolute;
-  border: 1px solid #acf;
-  padding: 40px 50px 50px 60px;
-  background-color: #acf;
-  background-blend-mode: lighten;
-  background-position: center;
-  border-radius: 6px;
-}
 * {
   font-family: 'Titillium Web', sans-serif !important;
+}
+button {
+  outline: 0 !important;
 }

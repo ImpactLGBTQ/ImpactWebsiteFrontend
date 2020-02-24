@@ -6,6 +6,8 @@ import User from "../User";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import HomePage from "./HomePage";
+import {to_page} from "../titlebar/TitleBar";
 
 
 
@@ -58,6 +60,7 @@ export class LoginForm extends React.Component {
         const successCallback = (data) => {
             // Tell the user to login
             this.props.user.login(data);
+            to_page(<HomePage />);
         };
 
         const data = JSON.stringify({"username": this.state.username, "password": this.state.password});
