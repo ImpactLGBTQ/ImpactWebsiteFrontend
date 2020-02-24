@@ -36,7 +36,7 @@ class UserDropdown extends React.Component {
     render() {
         if (this.state.logged_in) {
             return (
-                <DropdownButton bsPrefix="header_btn" title={this.state.user_username} id="dropdown-user-info-btn">
+                <DropdownButton className="header_btn" title={this.state.user_username} id="dropdown-user-info-btn">
 
                     <Dropdown.Item bsPrefix="header_btn" onClick="profile_page()" >
                         Profile

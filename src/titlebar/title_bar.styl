@@ -31,6 +31,33 @@
     padding-right 30px
     height 100%
     padding-bottom 3px
+
+    button {
+      height 100%
+      position relative
+      background none
+      border none
+      color seline-smoke
+      border-radius 3px
+      background-color transparent
+    }
+    button:hover {
+      //background dark-violet
+      border-radius 5px
+      transform scale(1.1)
+    }
+
+    button:after {
+      display block
+      content ' '
+      border-bottom 3px solid light-placid-blue
+      transform scaleX(0)
+      transition transform 250ms ease-in-out
+    }
+    button:hover:after {
+      transform scaleX(1)
+    }
+
   }
 }
 
@@ -48,29 +75,5 @@
     padding 0
   }
 }
-// Title bar
-.header_btn {
-  height 100%
-  position relative
-  background none
-  border none
-  color seline-smoke
-  border-radius 3px
-  background-color transparent
-}
-.header_btn:hover {
-  //background dark-violet
-  border-radius 5px
-  transform scale(1.1)
-}
 
-.header_btn:after {
-  display block
-  content ' '
-  border-bottom 3px solid light-placid-blue
-  transform scaleX(0)
-  transition transform 250ms ease-in-out
-}
-.header_btn:hover:after {
-  transform scaleX(1)
-}
+
