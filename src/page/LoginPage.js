@@ -31,9 +31,12 @@ export class LoginForm extends React.Component {
 
     submitHandler(event) {
         event.preventDefault();
+        const successCallback = (data) => {
+            // Tell the user to login
+            this.props.user.login(data);
+        };
 
         const data = JSON.stringify({"username": this.state.username, "password": this.state.password});
-
         $.ajax(
             {
                 type: "POST",
@@ -42,18 +45,17 @@ export class LoginForm extends React.Component {
                 async: true,
                 crossdomain: true,
                 data: data,
-                success: (data) => {
-                    // Tell the user to login
-                    this.props.user.login(data);
-                },
+                success: successCallback,
                 statusCode: {
                     401: () =>
                         // Invalid credentials
+                    {
                         this.setState(
                             {
                                 invalidCredentials: true
                             }
                         )
+                    }
                 }
             }
         );
