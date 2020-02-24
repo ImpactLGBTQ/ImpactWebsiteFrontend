@@ -38,16 +38,16 @@ class UserDropdown extends React.Component {
             return (
                 <DropdownButton className="header_btn" title={this.state.user_username} id="dropdown-user-info-btn">
 
-                    <Dropdown.Item bsPrefix="header_btn" onClick="profile_page()" >
+                    <Dropdown.Item>
                         Profile
                     </Dropdown.Item>
 
-                    <Dropdown.Item bsPrefix="header_btn" onClick="make_post()">
+                    <Dropdown.Item>
                         Make a post
                     </Dropdown.Item>
 
                     <Dropdown.Divider />
-                    <Dropdown.Item bsPrefix="header_btn" onClick={() => this.state.user.logout()} >
+                    <Dropdown.Item onClick={() => this.state.user.logout()} >
                         Logout
                     </Dropdown.Item>
 
