@@ -3,6 +3,8 @@ import MainPage from "./MainPage";
 import $ from 'jquery';
 import Cookies from 'js-cookie'
 import User from "../User";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 
 
@@ -64,35 +66,33 @@ export class LoginForm extends React.Component {
 
     render() {
         return (
-        <form className="standard_form" onSubmit={this.submitHandler}>
-            <div className="form-group">
+        <Form onSubmit={this.submitHandler}>
+            <Form.Group>
                 {
                     this.state.invalidCredentials ?
                         <div className="alert alert-danger">Invalid username or password</div>
                         :
                         <div/>
                 }
-                <label>
-                    Username
-                    <input type="text" name="username" onChange={this.inputChange}/>
-                </label>
-            </div>
-            <div className="form-group">
-                <label>
-                    Password
-                    <input type="password" name="password" onChange={this.inputChange}/>
-                </label>
-            </div>
-            <input className="form_btn btn btn-primary" type="submit" value="Login" />
-            <div className="form-group">
-                Dont have an account? <a className="signup_link" href="#">create
-                one</a>.<br /> (You must be a member of Impact and have an authentication token)
-            </div>
-        </form>
+                <Form.Label>Username</Form.Label>
+                <Form.Control placeholder="Enter username" type="text" name="username" onChange={this.inputChange}/>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter password" name="password" onChange={this.inputChange}/>
+            </Form.Group>
+            <Form.Group>
+            <Button className="form_btn" type="submit" >Login</Button>
+            </Form.Group>
+        </Form>
         );
     }
 
 }
+        /*
+        <div className="form-group">
+            Dont have an account? <a className="signup_link" href="#">create
+            one</a>.<br /> (You must be a member of Impact and have an authentication token) */
 
 class LoginPage extends MainPage {
 
