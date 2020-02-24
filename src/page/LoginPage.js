@@ -16,7 +16,6 @@ export class LoginForm extends React.Component {
 
         this.state = {
             invalidCredentials: false,
-            user: this.props.user ? this.props.user : new User()
         };
     }
 
@@ -44,9 +43,8 @@ export class LoginForm extends React.Component {
                 crossdomain: true,
                 data: data,
                 success: (data) => {
-                    // Set the token cookie
-                    this.state.user.login(data);
-
+                    // Tell the user to login
+                    this.props.user.login(data);
                 },
                 statusCode: {
                     401: () =>
@@ -100,7 +98,7 @@ class LoginPage extends MainPage {
         return (
             <div className="form_container">
                 <h2>Login to the Impact website</h2>
-                <LoginForm />
+                <LoginForm user={this.props.user} />
             </div>
         );
     }

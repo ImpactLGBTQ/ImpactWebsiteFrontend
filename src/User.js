@@ -24,8 +24,8 @@ class User {
     // Attempts to log in with the provided token asynchronusly calling the callback with the result
     login(data) {
         Cookies.set('cred_token', data.token);
-        this.state.user.setToken(data);
-        this.state.user.fetchData();
+        this.setToken(data.token);
+        this.fetchData();
     }
 
     // Fetches data about itself from the backend
@@ -39,6 +39,9 @@ class User {
                     this.setUsername(data.username);
                     this.setUUID(data.uuid);
                     this.stateChanged();
+                },
+                error: (xhr, code, err) => {
+                    console.log("ERROR GETTING USER DATA: "+err);
                 }
             }
         )
@@ -59,9 +62,6 @@ class User {
             },
             error: (xhr, code, err) => console.log("Error signing out: "+err),
     });
-
-
-
     }
 
     stateChanged() {
