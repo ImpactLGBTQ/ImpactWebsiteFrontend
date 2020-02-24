@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import User from "../User";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 
 
@@ -18,6 +19,7 @@ export class LoginForm extends React.Component {
 
         this.state = {
             invalidCredentials: false,
+            invalidEntry: false,
         };
     }
 
@@ -33,6 +35,26 @@ export class LoginForm extends React.Component {
 
     submitHandler(event) {
         event.preventDefault();
+
+        this.setState({
+            invalidEntry: false
+        });
+
+        if (!this.state.username) {
+            this.setState({
+                invalidEntry: "Username field is empty"
+            });
+            return;
+        }
+
+        if (!this.state.password) {
+            this.setState({
+                invalidEntry: "Password field is empty"
+            });
+            return;
+        }
+
+
         const successCallback = (data) => {
             // Tell the user to login
             this.props.user.login(data);
@@ -68,11 +90,9 @@ export class LoginForm extends React.Component {
         return (
         <Form onSubmit={this.submitHandler}>
             <Form.Group>
+                {this.state.invalidCredentials && <Alert variant="danger">Invalid username or password</Alert>}
                 {
-                    this.state.invalidCredentials ?
-                        <div className="alert alert-danger">Invalid username or password</div>
-                        :
-                        <div/>
+                    this.state.invalidEntry && <Alert variant="danger">{this.state.invalidEntry}</Alert>
                 }
                 <Form.Label>Username</Form.Label>
                 <Form.Control placeholder="Enter username" type="text" name="username" onChange={this.inputChange}/>
