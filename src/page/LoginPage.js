@@ -98,11 +98,11 @@ export class LoginForm extends React.Component {
                     this.state.invalidEntry && <Alert variant="danger">{this.state.invalidEntry}</Alert>
                 }
                 <Form.Label>Username</Form.Label>
-                <Form.Control placeholder="Enter username" type="text" name="username" onChange={this.inputChange}/>
+                <Form.Control placeholder="Enter username" type="text" name="username" onChange={this.inputChange} required/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" name="password" onChange={this.inputChange}/>
+                <Form.Control type="password" placeholder="Enter password" name="password" onChange={this.inputChange} required/>
             </Form.Group>
             <Form.Group>
             <Button className="form_btn" type="submit" >Login</Button>
