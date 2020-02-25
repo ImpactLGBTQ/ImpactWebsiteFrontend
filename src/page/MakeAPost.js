@@ -25,17 +25,14 @@ export class PostForm extends React.Component {
 
     render() {
         return (
-            <div className="form_container make_a_post_container">
-                <div>
-                    <h2>Make a post</h2>
-                </div>
+            <div className="form_container">
                 <Form onSubmit={this.onSubmit}>
+                    <Form.Label><h3>New post</h3></Form.Label>
                     <Form.Group>
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" placehold="Enter title" required />
+                        <Form.Control type="text" name="title" placeholder="Enter title" required />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control type="text" as="textarea" name="content" placeholder="Post content" required />
+                        <Form.Control type="text" as="textarea" name="content" placeholder="Enter content" required />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Category</Form.Label>
@@ -50,7 +47,7 @@ export class PostForm extends React.Component {
                             <option>Staff</option>
                         </Form.Control>
                     </Form.Group>
-                    <Button variant="primary" className="form_btn" type="submit">Post</Button>
+                    <Button variant="primary" className="form_btn" type="submit">Submit</Button>
                 </Form>
 
             </div>

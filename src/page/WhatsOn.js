@@ -4,6 +4,7 @@ import $ from 'jquery';
 import Card from "react-bootstrap/Card";
 import PropTypes from 'prop-types'
 import './post.css';
+import {PostForm} from "./MakeAPost";
 
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
@@ -85,6 +86,8 @@ class WhatsOn extends MainPage {
         return (
             <>
                 {this.state.posts}
+                <hr />
+                <PostForm />
             </>
         );
     }
