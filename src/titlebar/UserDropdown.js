@@ -14,20 +14,20 @@ class UserDropdown extends React.Component {
 
 
         // Setup username
-        const user = new User(() => {
+        this.props.user.setStateChangeCallback(() => {
             this.setState(
                 {
-                    user_username: user.getUsername()
+                    user_username: this.props.user.getUsername()
                 });
             this.setState({
-                logged_in: !!user.getToken()
+                logged_in: !!this.props.user.getToken()
             });
         });
 
         this.state = {
-            logged_in: !!user.getToken(),
+            logged_in: !!this.props.user.getToken(),
             user_username: "Loading...",
-            user: user,
+            user: this.props.user,
         };
 
     }
@@ -59,5 +59,9 @@ class UserDropdown extends React.Component {
     }
 
 }
+
+UserDropdown.propTypes = {
+    user: React.PropTypes.objectOf(User).isRequired,
+};
 
 export default UserDropdown;

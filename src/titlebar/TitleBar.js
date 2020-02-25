@@ -57,7 +57,7 @@ export default class TitleBar extends React.Component {
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
                   </nav>
                   <div>
-                    <UserDropdown />
+                    <UserDropdown user={this.props.user} />
                   </div>
               </div>
             </div>
