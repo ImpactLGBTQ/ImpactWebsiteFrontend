@@ -22,7 +22,7 @@ class User {
     }
     // returns the authentication header required as json
     getAuthHeader() {
-        return {"Authentication": "Token "+this.token}
+        return {"Authorization": "Token "+this.token}
     }
 
     // Attempts to log in with the provided token asynchronusly calling the callback with the result

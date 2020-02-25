@@ -3,17 +3,17 @@ import MainPage from "./MainPage";
 import $ from 'jquery';
 import Card from "react-bootstrap/Card";
 import PropTypes from 'prop-types'
+import './post.css';
 
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
     $.ajax({
-        url: "localhost:8000/api/posting/get/"+num,
+        url: "http://localhost:8000/api/posting/get/"+num,
         crossdomain: true,
-        header: user.getAuthHeader(),
+        headers: user.getAuthHeader(),
         success: successCallback,
-        error: errorCallback,
-        datatype: 'json',
-    })
+        dataType: 'json',
+    });
 
 }
 
@@ -30,14 +30,16 @@ class Post extends React.Component {
 
     render() {
         return (
+
             <Card>
-                <Card.Body>
+                <Card.Body className="post_container">
                     <Card.Title>{this.props.title}</Card.Title>
                     <Card.Subtitle>{this.props.author}</Card.Subtitle>
-                </Card.Body>
                 <Card.Text>
+                    <br/>
                     {this.props.content}
                 </Card.Text>
+                </Card.Body>
             </Card>
         );
     }
@@ -61,10 +63,10 @@ class WhatsOn extends MainPage {
             posts: null,
         };
         const func =  (data) => {
-            alert(JSON.stringify(data));
-            var posts = [];
-            alert(data);
-            for (const post in data) {
+
+            const posts = [];
+            for (let i = 0; i < data.length; i++) {
+                const post = data[i];
                 posts.push(<Post title={post.title} content={post.content} author={post.author_name} />);
             }
 
@@ -75,7 +77,7 @@ class WhatsOn extends MainPage {
         const fun = (xhr, worthless, err) => {
             console.log("Failed to fetch post data!: "+err)
         };
-        getPosts(props.user, 10,func, func )
+        getPosts(props.user, 10,func, fun )
 
     }
 
