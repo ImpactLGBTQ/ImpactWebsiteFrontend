@@ -36,7 +36,7 @@ class Post extends React.Component {
                     <Card.Subtitle>{this.props.author}</Card.Subtitle>
                 </Card.Body>
                 <Card.Text>
-                    {this.props.desc}
+                    {this.props.content}
                 </Card.Text>
             </Card>
         );
@@ -47,7 +47,7 @@ class Post extends React.Component {
 
 Post.propTypes = {
     title: React.PropTypes.string.isRequired,
-    desc: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
     author: React.PropTypes.string.isRequired,
 };
 
@@ -61,20 +61,30 @@ class WhatsOn extends MainPage {
             posts: null,
         };
 
-
         getPosts(props.user, 10, (data) => {
 
             var posts = [];
 
             for (const post in data) {
-
+                posts += <Post title={post.title} content={post.content} author={post.author_name} />
             }
 
-
             this.setState({
-                posts:
+                posts: posts
             })
+        }, (xhr, worthless, err) => {
+            console.log("Failed to fetch post data!: "+err)
         });
+    }
+
+    render() {
+        return (
+            <>
+                <li>
+                    {this.state.posts}
+                </li>
+            </>
+        );
     }
 
 }
@@ -83,3 +93,5 @@ class WhatsOn extends MainPage {
 WhatsOn.propTypes = {
     user: React.PropTypes.object.isRequired
 };
+
+export default WhatsOn;
