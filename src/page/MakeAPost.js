@@ -19,7 +19,21 @@ export class PostForm extends React.Component {
             event.stopPropagation();
         }
 
-        alert(event.target.title.value)
+        const data = {"title": event.target.title.value, "content": event.target.content.value,
+            "type": event.target.category.value, "access_level": event.target.visibility.value}
+
+        // Send ajax request
+        $.ajax({
+            url: "http://localhost:8000/api/posting/new/",
+            headers: this.props.user ? this.props.user.getAuthHeader() : null,
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            success: () => {
+                alert("Posted successfully!");
+            },
+            error: () => alert("Error"),
+        });
     }
 
 

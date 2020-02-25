@@ -87,7 +87,7 @@ class WhatsOn extends MainPage {
             <>
                 {this.state.posts}
                 <hr />
-                <PostForm />
+                <PostForm user={this.props.user}/>
             </>
         );
     }
