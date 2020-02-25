@@ -11,12 +11,54 @@ function getPosts(user, num, successCallback, errorCallback) {
         header: user.getAuthHeader(),
         success: successCallback,
         error: errorCallback,
+        datatype: 'json',
     })
 
 }
 
+class Post extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+
+}
+
+Post.propTypes = {
+
+};
+
 class WhatsOn extends MainPage {
 
     // This will have to be more complex as it fetches results from the backend
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            posts: null,
+        };
+
+
+        getPosts(props.user, 10, (data) => {
+
+            var posts = [];
+
+            for (const post in data) {
+
+            }
+
+
+            this.setState({
+                posts:
+            })
+        });
+    }
 
 }
+
+
+WhatsOn.propTypes = {
+    user: React.PropTypes.object.isRequired()
+};
