@@ -49,11 +49,11 @@ export class PostForm extends React.Component {
             type: "POST",
             dataType: 'json',
             data: JSON.stringify(data),
-            success: () => {
-                alert("Posted successfully!");
-            },
-            error: (xhr, worthless, err) => alert("Error: "+err),
-        });
+        }).done(
+            () => {
+                if (this.props.done_callback) this.props.done_callback();
+            }
+        );
     }
 
 

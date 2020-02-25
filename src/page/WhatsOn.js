@@ -63,31 +63,34 @@ class WhatsOn extends MainPage {
         this.state = {
             posts: null,
         };
-        const func =  (data) => {
-
-            const posts = [];
-            for (let i = 0; i < data.length; i++) {
-                const post = data[i];
-                posts.push(<Post title={post.title} content={post.content} author={post.author_name} />);
-            }
-
-            this.setState({
-                posts: posts
-            })
-        };
-        const fun = (xhr, worthless, err) => {
-            console.log("Failed to fetch post data!: "+err)
-        };
-        getPosts(props.user, 10,func, fun )
+        this.postsCallback = this.postsCallback.bind(this);
+        getPosts(props.user, 10,this.postsCallback )
 
     }
+
+    postsCallback(data) {
+
+        const posts = [];
+
+        for (let i = 0; i < data.length; i++) {
+            const
+                post = data[i];
+            posts.push(<Post title={post.title} content={post.content} author={post.author_name}/>);
+        }
+
+        this.setState({
+            posts: posts
+        })
+    };
 
     render() {
         return (
             <>
                 {this.state.posts}
                 <hr />
-                <PostForm user={this.props.user}/>
+                <PostForm user={this.props.user} done_callback={() => {
+                    getPosts(this.props.user, 10, this.postsCallback)
+                }}/>
             </>
         );
     }
