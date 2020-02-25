@@ -6,6 +6,7 @@ import {to_page} from "./TitleBar";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from "react-bootstrap/DropdownButton";
 import PropTypes from 'prop-types'
+import MakeAPost from "../page/MakeAPost";
 
 class UserDropdown extends React.Component {
 
@@ -41,7 +42,7 @@ class UserDropdown extends React.Component {
                     <Dropdown.Item>
                         Profile
                     </Dropdown.Item>
-                    <Dropdown.Item>
+                    <Dropdown.Item onClick={() => to_page(<MakeAPost />)}>
                         Make a post
                     </Dropdown.Item>
 
