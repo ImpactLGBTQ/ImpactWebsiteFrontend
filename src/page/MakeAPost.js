@@ -18,21 +18,37 @@ export class PostForm extends React.Component {
             event.preventDefault();
             event.stopPropagation();
         }
+        let value_index;
+        switch (event.target.category.value) {
+            case "Whats on (Feed post)":
+                value_index = 0;
+            case "Event (Impact only post)":
+                value_index = 1;
+        }
+        let access_index;
+        switch (event.target.visibility.value) {
+            case "Everyone":
+                access_index = 0;
+            case "Impact members+":
+                access_index = 1;
+            case "Staff":
+                access_index = 2;
+        }
 
         const data = {"title": event.target.title.value, "content": event.target.content.value,
-            "type": event.target.category.value, "access_level": event.target.visibility.value}
-
+            "type": value_index, "access_level": access_index};
+        alert(JSON.stringify(data))
         // Send ajax request
         $.ajax({
             url: "http://localhost:8000/api/posting/new/",
             headers: this.props.user ? this.props.user.getAuthHeader() : null,
             type: "POST",
             dataType: 'json',
-            data: data,
+            data: JSON.stringify(data),
             success: () => {
                 alert("Posted successfully!");
             },
-            error: () => alert("Error"),
+            error: (xhr, worthless, err) => alert("Error: "+err),
         });
     }
 
