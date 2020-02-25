@@ -11,6 +11,7 @@ import LoginPage from "../page/LoginPage";
 import get_csrf from "../csrf";
 import User from "../User";
 import UserDropdown from "./UserDropdown";
+import WhatsOn from "../page/WhatsOn";
 
 export function to_page(page) {
     // Call an api here to get content
@@ -19,7 +20,6 @@ export function to_page(page) {
 
 
 export default class TitleBar extends React.Component {
-    //title_buttons = [{"text": "Home"}];
 
     constructor(props) {
         super(props);
@@ -53,7 +53,7 @@ export default class TitleBar extends React.Component {
                       <Button onClick={() => to_page(<WhoAreWe />)} text="Who are we" />
                       <Button onClick="find_us()" text="Find us" />
                       <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
-                      <Button onClick="whats_on()" text="Whats on" />
+                      <Button onClick={() => to_page(<WhatsOn user={this.props.user}/>)} text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
                   </nav>
                   <div>
@@ -66,29 +66,6 @@ export default class TitleBar extends React.Component {
 
 }
 
-
-/*
-
-                  <div className="dropdown">
-                      <Button className="dropdown-toggle header_btn" type="button" id="dropdownMenuButton"
-                              data-toggle="dropdown"
-                      >{ }</button>
-                      <div className="dropdown-menu" >
-                          <button 
-                                  onClick="profile_page()
-">Profile
-                          </button>
-                          <button make_post()
-">Make a post
-                          </button>
-
-                          <div className="dropdown-divider"></div>
-                          <button logout()
-">Logout
-                          </button>
-                      </div>
-                  </div>
-                  {% else %}
-                  <Button className="header_btn" onClick="login_portal()">Login</button>
-                  {% endif %}
- */
+TitleBar.propTypes = {
+    user: React.PropTypes.objectOf(User).isRequired,
+};
