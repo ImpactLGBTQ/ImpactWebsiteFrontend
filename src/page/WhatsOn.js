@@ -2,6 +2,7 @@ import * as React from "react";
 import MainPage from "./MainPage";
 import $ from 'jquery';
 import Card from "react-bootstrap/Card";
+import PropTypes from 'prop-types'
 
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
@@ -46,9 +47,9 @@ class Post extends React.Component {
 }
 
 Post.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    content: React.PropTypes.string.isRequired,
-    author: React.PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
 };
 
 class WhatsOn extends MainPage {
@@ -91,7 +92,7 @@ class WhatsOn extends MainPage {
 
 
 WhatsOn.propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: PropTypes.object.isRequired
 };
 
 export default WhatsOn;

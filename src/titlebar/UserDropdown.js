@@ -5,7 +5,7 @@ import LoginPage from "../page/LoginPage";
 import {to_page} from "./TitleBar";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from "react-bootstrap/DropdownButton";
-import ThemeProvider from "react-bootstrap/ThemeProvider";
+import PropTypes from 'prop-types'
 
 class UserDropdown extends React.Component {
 
@@ -61,7 +61,6 @@ class UserDropdown extends React.Component {
 }
 
 UserDropdown.propTypes = {
-    user: React.PropTypes.objectOf(User).isRequired,
+    user: PropTypes.objectOf(User).isRequired,
 };
-
 export default UserDropdown;

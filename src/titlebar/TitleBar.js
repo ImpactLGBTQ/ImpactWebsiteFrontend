@@ -7,7 +7,7 @@ import "./title_bar.css";
 import FAQPage from "../page/FAQPage";
 import WhoAreWe from "../page/WhoAreWe";
 import Signposting from "../page/Signposting";
-import LoginPage from "../page/LoginPage";
+import PropTypes from 'prop-types'
 import get_csrf from "../csrf";
 import User from "../User";
 import UserDropdown from "./UserDropdown";
@@ -67,5 +67,5 @@ export default class TitleBar extends React.Component {
 }
 
 TitleBar.propTypes = {
-    user: React.PropTypes.objectOf(User).isRequired,
+    user: PropTypes.objectOf(User).isRequired,
 };
