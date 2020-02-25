@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
-
     $.ajax({
         url: "localhost:8000/api/posting/get/"+num,
         crossdomain: true,
@@ -61,29 +60,29 @@ class WhatsOn extends MainPage {
         this.state = {
             posts: null,
         };
-
-        getPosts(props.user, 10, (data) => {
-
+        const func =  (data) => {
+            alert(JSON.stringify(data));
             var posts = [];
-
+            alert(data);
             for (const post in data) {
-                posts += <Post title={post.title} content={post.content} author={post.author_name} />
+                posts.push(<Post title={post.title} content={post.content} author={post.author_name} />);
             }
 
             this.setState({
                 posts: posts
             })
-        }, (xhr, worthless, err) => {
+        };
+        const fun = (xhr, worthless, err) => {
             console.log("Failed to fetch post data!: "+err)
-        });
+        };
+        getPosts(props.user, 10,func, func )
+
     }
 
     render() {
         return (
             <>
-                <li>
-                    {this.state.posts}
-                </li>
+                {this.state.posts}
             </>
         );
     }
