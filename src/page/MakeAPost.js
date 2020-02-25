@@ -22,22 +22,26 @@ export class PostForm extends React.Component {
         switch (event.target.category.value) {
             case "Whats on (Feed post)":
                 value_index = 0;
+                break;
             case "Event (Impact only post)":
                 value_index = 1;
+                break;
         }
         let access_index;
         switch (event.target.visibility.value) {
             case "Everyone":
                 access_index = 0;
+                break;
             case "Impact members+":
                 access_index = 1;
+                break;
             case "Staff":
                 access_index = 2;
+                break;
         }
 
         const data = {"title": event.target.title.value, "content": event.target.content.value,
             "type": value_index, "access_level": access_index};
-        alert(JSON.stringify(data))
         // Send ajax request
         $.ajax({
             url: "http://localhost:8000/api/posting/new/",
