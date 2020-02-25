@@ -38,25 +38,6 @@ export class LoginForm extends React.Component {
     submitHandler(event) {
         event.preventDefault();
 
-        this.setState({
-            invalidEntry: false
-        });
-
-        if (!this.state.username) {
-            this.setState({
-                invalidEntry: "Username field is empty"
-            });
-            return;
-        }
-
-        if (!this.state.password) {
-            this.setState({
-                invalidEntry: "Password field is empty"
-            });
-            return;
-        }
-
-
         const successCallback = (data) => {
             // Tell the user to login
             this.props.user.login(data);
