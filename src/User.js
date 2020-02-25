@@ -20,6 +20,10 @@ class User {
         this.stateChangeCallback = state_change_callback;
 
     }
+    // returns the authentication header required as json
+    getAuthHeader() {
+        return {"Authentication": "Token "+this.token}
+    }
 
     // Attempts to log in with the provided token asynchronusly calling the callback with the result
     login(data) {
