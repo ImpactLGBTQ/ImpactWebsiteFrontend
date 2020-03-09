@@ -1,7 +1,7 @@
 // Takes a callback and returns the csrf token through it
 import $ from "jquery";
 import Cookies from 'js-cookie';
-import CONFIG from 'config.js';
+import CONFIG from './config.js';
 
 
 export default function get_csrf(callback) {

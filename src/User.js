@@ -3,7 +3,7 @@
 import $ from 'jquery';
 import get_csrf from "./csrf";
 import Cookies from 'js-cookie';
-import CONFIG from 'config.js';
+import CONFIG from './config.js';
 
 class User {
     username;

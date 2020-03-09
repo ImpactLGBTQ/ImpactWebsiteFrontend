@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import PropTypes from 'prop-types'
 import './post.css';
 import {PostForm} from "./MakeAPost";
-import CONFIG from 'config.js';
+import CONFIG from '../config.js';
 
 
 // Fetches posts asyncthorusly from the backend
