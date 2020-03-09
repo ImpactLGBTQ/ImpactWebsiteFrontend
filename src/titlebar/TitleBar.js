@@ -29,7 +29,7 @@ export default class TitleBar extends React.Component {
         };
 
         // set csrf token
-        get_csrf(function(token) {
+        get_csrf((token) => {
             this.setState(
                 {
                     csrf_token: token

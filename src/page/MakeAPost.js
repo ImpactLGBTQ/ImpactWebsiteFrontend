@@ -19,7 +19,7 @@ export class PostForm extends React.Component {
             event.stopPropagation();
         }
 
-        alert(event.target.title.value)
+        
     }
 
 

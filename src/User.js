@@ -37,7 +37,7 @@ class User {
     fetchData() {
         $.ajax({
                 url: CONFIG['backend_url']+'/api/user',
-               // crossDomain: true,
+                crossDomain: true,
                 headers: { 'Authorization': 'Token '+this.token},
                 datatype: 'json',
                 success: (data) => {
