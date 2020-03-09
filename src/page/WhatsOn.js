@@ -9,11 +9,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col'
 import Button from "react-bootstrap/Button";
+import CONFIG from '../config.js';
+
 
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
     $.ajax({
-        url: "http://localhost:8000/api/posting/get/"+num,
+        url: CONFIG['backend_url']+"/api/posting/get/"+num,
         crossdomain: true,
         headers: user.getAuthHeader(),
         success: successCallback,

@@ -40,6 +40,7 @@ export class PostForm extends React.Component {
                 break;
         }
 
+
         const data = {"title": event.target.title.value, "content": event.target.content.value,
             "type": value_index, "access_level": access_index};
         // Send ajax request
