@@ -48,7 +48,7 @@ export class LoginForm extends React.Component {
         $.ajax(
             {
                 type: "POST",
-                url: "http://localhost:8000/api/auth/logmein/",
+                url: CONFIG['backend_url']+"/api/auth/logmein/",
                 dataType: 'json',
                 async: true,
                 crossdomain: true,

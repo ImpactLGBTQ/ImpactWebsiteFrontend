@@ -9,7 +9,7 @@ import {PostForm} from "./MakeAPost";
 // Fetches posts asyncthorusly from the backend
 function getPosts(user, num, successCallback, errorCallback) {
     $.ajax({
-        url: "http://localhost:8000/api/posting/get/"+num,
+        url: CONFIG['backend_url']+"/api/posting/get/"+num,
         crossdomain: true,
         headers: user.getAuthHeader(),
         success: successCallback,

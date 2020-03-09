@@ -3,6 +3,7 @@
 import $ from 'jquery';
 import get_csrf from "./csrf";
 import Cookies from 'js-cookie';
+import CONFIG from 'config.js';
 
 class User {
     username;
@@ -35,8 +36,8 @@ class User {
     // Fetches data about itself from the backend
     fetchData() {
         $.ajax({
-                url: 'http://localhost:8000/api/user',
-                crossDomain: true,
+                url: CONFIG['backend_url']+'/api/user',
+               // crossDomain: true,
                 headers: { 'Authorization': 'Token '+this.token},
                 datatype: 'json',
                 success: (data) => {
