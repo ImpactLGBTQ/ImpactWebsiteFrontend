@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import HomePage from "./HomePage";
 import {to_page} from "../titlebar/TitleBar";
+import CONFIG from 'config.js';
 
 
 
