@@ -37,7 +37,7 @@ class Post extends React.Component {
 
     deleteSelf() {
         $.ajax({
-            url: "http://localhost:8000/api/posting/del/"+this.props.uuid,
+            url: CONFIG['backend_url']+"/api/posting/del/"+this.props.uuid,
             success: () => alert("Success!"),
         })
     }
