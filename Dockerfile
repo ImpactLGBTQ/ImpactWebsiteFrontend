@@ -13,11 +13,13 @@ COPY . /app
 
 # Compile the stylus
 RUN npm install stylus -g \
-    && stylus /app/src/page/*.styl
+    && stylus /app/src/page/*.styl \
+    && npm install serve -g
 
 
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build", "-l", "3000"]
 
