@@ -68,7 +68,7 @@ export class PostForm extends React.Component {
             dataType: 'json',
             data: JSON.stringify(data),
             success: (data) => {
-                if (this.props.new_post_callback) this.props.new_post_callback(title, content, data['uuid']);
+                this.props.new_post_callback(title, content, data['uuid']);
             },
             error: (xhr, code, err) => console.error("Failed to add a new post: "+err+"\nURL: "+url+"\nCODE: "+code
             +"\nReponse Text: "+xhr.responseText + "\nDATA: "+JSON.stringify(data))

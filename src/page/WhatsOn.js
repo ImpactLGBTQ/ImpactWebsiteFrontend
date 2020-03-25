@@ -89,9 +89,10 @@ class WhatsOn extends MainPage {
         super(props);
 
         this.state = {
-            posts: null,
+            posts: [],
         };
         this.postsCallback = this.postsCallback.bind(this);
+        this.addPost = this.addPost.bind(this);
         getPosts(props.user, 10,this.postsCallback )
 
     }
@@ -102,25 +103,27 @@ class WhatsOn extends MainPage {
 
         for (let i = 0; i < data.length; i++) {
             const post = data[i];
-            posts.push(<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author} />);
+            posts.push({"title": post.title, "content": post.content, "author_name": post.author_name, "author_id": post.author, "uuid": post.uuid});
         }
-
         this.setState({
             posts: posts
         });
     };
+    addPost(title, content, uuid) {
+        this.state.posts.push({"title": title, "content": content, "author_name": this.props.user.getUsername(), "author_id": this.props.user.getUUID(), "uuid": uuid})
+        // Trigger a re-render
+        this.forceUpdate();
+    }
 
     render() {
         return (
-            <>
-                {this.state.posts}
+            <>  <div>
+                    {this.state.posts.map(function(post, index) {
+                        return (<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author_id} />);
+                    })}
+                </div>
                 <hr />
-                <PostForm user={this.props.user} new_post_callback={(title, content, uuid) => {
-                    alert(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
-                    this.setState({
-                        posts: this.state.posts.append(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
-                    })
-                }}/>
+                <PostForm user={this.props.user} new_post_callback={this.addPost}/>
             </>
         );
     }
