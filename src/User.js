@@ -55,7 +55,7 @@ class User {
     logout() {
         // Send ajax to logout
         $.ajax({
-            url: 'http://localhost:8000/api/auth/logmeout',
+            url: CONFIG['backend_url']+"/api/auth/logmeout",
             headers: { 'Authorization': 'Token '+this.token},
             success: () => {
                 Cookies.remove('cred_token');

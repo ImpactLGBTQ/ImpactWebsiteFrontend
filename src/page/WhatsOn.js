@@ -116,6 +116,7 @@ class WhatsOn extends MainPage {
                 {this.state.posts}
                 <hr />
                 <PostForm user={this.props.user} new_post_callback={(title, content, uuid) => {
+                    alert(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
                     this.setState({
                         posts: this.state.posts.append(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
                     })

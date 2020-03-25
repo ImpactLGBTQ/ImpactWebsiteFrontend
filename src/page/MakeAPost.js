@@ -2,7 +2,7 @@ import * as React from 'react';
 import $ from 'jquery';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import CONFIG from '../config';
 export class PostForm extends React.Component {
 
     constructor(props) {
@@ -61,14 +61,15 @@ export class PostForm extends React.Component {
             "type": value_index, "access_level": access_index};
         // Send ajax request
         $.ajax({
-            url: "http://localhost:8000/api/posting/new/",
+            url: CONFIG['backend_url']+"/api/posting/new/",
             headers: this.props.user ? this.props.user.getAuthHeader() : null,
             type: "POST",
             dataType: 'json',
             data: JSON.stringify(data),
             success: (data) => {
                 if (this.props.new_post_callback) this.props.new_post_callback(title, content, data['uuid']);
-            }
+            },
+            error: (xhr, code, err) => console.log("[ERROR]: Failed to add a new post: "+err)
         });
     }
 
