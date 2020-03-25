@@ -16,7 +16,7 @@ import CONFIG from '../config.js';
 function getPosts(user, num, successCallback, errorCallback) {
     $.ajax({
         url: CONFIG['backend_url']+"/api/posting/get/"+num,
-        crossdomain: true,
+        //crossdomain: true,
         headers: user.getAuthHeader(),
         success: successCallback,
         dataType: 'json',
@@ -50,7 +50,7 @@ class Post extends React.Component {
                         <Card>
                             <Card.Body className="post_container">
                                 <Card.Title>{this.props.title}</Card.Title>
-                                <Card.Subtitle>{this.props.author}</Card.Subtitle>
+                                <Card.Subtitle>{this.props.author_name}</Card.Subtitle>
                             <Card.Text>
                                 <br/>
                                 {this.props.content}
@@ -77,7 +77,7 @@ class Post extends React.Component {
 Post.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    author_name: PropTypes.string.isRequired,
     author_id: PropTypes.string.isRequired,
     uuid: PropTypes.string.isRequired,
 };
@@ -102,12 +102,12 @@ class WhatsOn extends MainPage {
 
         for (let i = 0; i < data.length; i++) {
             const post = data[i];
-            posts.push(<Post title={post.title} content={post.content} author={post.author_name} uuid={post.uuid} author_id={post.author} />);
+            posts.push(<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author} />);
         }
 
         this.setState({
             posts: posts
-        })
+        });
     };
 
     render() {
@@ -115,8 +115,10 @@ class WhatsOn extends MainPage {
             <>
                 {this.state.posts}
                 <hr />
-                <PostForm user={this.props.user} done_callback={() => {
-                    getPosts(this.props.user, 10, this.postsCallback)
+                <PostForm user={this.props.user} new_post_callback={(title, content, uuid) => {
+                    this.setState({
+                        posts: this.state.posts.append(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
+                    })
                 }}/>
             </>
         );

@@ -9,6 +9,9 @@ export class PostForm extends React.Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.state = {
+            "errors": [],
+        }
     }
 
     onSubmit(event) {
@@ -18,6 +21,7 @@ export class PostForm extends React.Component {
             event.preventDefault();
             event.stopPropagation();
         }
+        
         let value_index;
         switch (event.target.category.value) {
             case "Whats on (Feed post)":
@@ -26,6 +30,11 @@ export class PostForm extends React.Component {
             case "Event (Impact only post)":
                 value_index = 1;
                 break;
+            default:
+                this.setState({
+                    "errors": this.state.errors.append("Unknown post type"),
+                });
+                return;
         }
         let access_index;
         switch (event.target.visibility.value) {
@@ -38,10 +47,17 @@ export class PostForm extends React.Component {
             case "Staff":
                 access_index = 2;
                 break;
+            default: 
+                this.setState({
+                    "errors": this.state.errors.append("Unkown visibility level"),
+                })
+                return;
         }
 
+        const title = event.target.title.value
+        const content = event.target.content.value
 
-        const data = {"title": event.target.title.value, "content": event.target.content.value,
+        const data = {"title": title, "content": content,
             "type": value_index, "access_level": access_index};
         // Send ajax request
         $.ajax({
@@ -50,11 +66,10 @@ export class PostForm extends React.Component {
             type: "POST",
             dataType: 'json',
             data: JSON.stringify(data),
-        }).done(
-            () => {
-                if (this.props.done_callback) this.props.done_callback();
+            success: (data) => {
+                if (this.props.new_post_callback) this.props.new_post_callback(title, content, data['uuid']);
             }
-        );
+        });
     }
 
 

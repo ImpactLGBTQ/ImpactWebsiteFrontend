@@ -12,7 +12,7 @@ class MainPage extends React.Component {
     render() {
         const content = this.getContent();
         const html_page = (<div id={MainPage.getId()}>{content}</div>);
-        return content;
+        return html_page;
     }
 
 }
