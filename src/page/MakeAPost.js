@@ -60,8 +60,9 @@ export class PostForm extends React.Component {
         const data = {"title": title, "content": content,
             "type": value_index, "access_level": access_index};
         // Send ajax request
+        const url = CONFIG['backend_url']+"/api/posting/new/";
         $.ajax({
-            url: CONFIG['backend_url']+"/api/posting/new/",
+            url: url,
             headers: this.props.user ? this.props.user.getAuthHeader() : null,
             type: "POST",
             dataType: 'json',
@@ -69,7 +70,8 @@ export class PostForm extends React.Component {
             success: (data) => {
                 if (this.props.new_post_callback) this.props.new_post_callback(title, content, data['uuid']);
             },
-            error: (xhr, code, err) => console.log("[ERROR]: Failed to add a new post: "+err)
+            error: (xhr, code, err) => console.error("Failed to add a new post: "+err+"\nURL: "+url+"\nCODE: "+code
+            +"\nReponse Text: "+xhr.responseText + "\nDATA: "+JSON.stringify(data))
         });
     }
 
