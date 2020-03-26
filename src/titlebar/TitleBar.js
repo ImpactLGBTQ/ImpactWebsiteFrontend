@@ -45,7 +45,7 @@ export default class TitleBar extends React.Component {
                 <div className="header_bar_inner">
                       <Button onClick="/home" text="Home" />
                       <Button onClick="/about" text="Who are we" />
-                      <Button onClick="find_us()" text="Find us" />
+                      <Button onClick="" text="Find us" />
                       <Button onClick="/faq" text="LGBTQ+ FAQ" />
                       <Button onClick="/events" text="Whats on" />
                       <Button onClick="/signposting" text="Signposting" />

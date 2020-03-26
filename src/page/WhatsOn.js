@@ -58,7 +58,7 @@ class Post extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    { (this.props.author_id == this.props.uuid) &&
+                    { (this.props.author_id === this.props.uuid) &&
                         // Delete abilities
                         <Col>
                             <Button onClick={this.deleteSelf}>Delete</Button>

@@ -1,12 +1,7 @@
 import * as React from "react";
 import Button from "./TitleButton";
 import User from "../User";
-import LoginPage from "../page/LoginPage";
-import {to_page} from "./TitleBar";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from "react-bootstrap/DropdownButton";
 import PropTypes from 'prop-types'
-import MakeAPost from "../page/MakeAPost";
 
 class UserDropdown extends React.Component {
 
@@ -18,11 +13,9 @@ class UserDropdown extends React.Component {
         this.props.user.setStateChangeCallback(() => {
             this.setState(
                 {
-                    user_username: this.props.user.getUsername()
+                    user_username: this.props.user.getUsername(),
+                    logged_in: !!this.props.user.getToken()
                 });
-            this.setState({
-                logged_in: !!this.props.user.getToken()
-            });
         });
 
         this.state = {
