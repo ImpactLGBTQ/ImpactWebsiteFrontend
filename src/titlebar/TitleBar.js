@@ -55,13 +55,8 @@ class Sidebar extends React.Component {
         return(
         <CheeseburgerMenu isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
             <div className="menu_container">
-                <div  >
-                    <Hamburger toggled={this.props.isOpen} toggle={this.props.isOpen} id="sidebar_close_btn" className="header_btn" onToggle={toggled => {
-                    this.props.closeCallback();}}/>
-                </div>
-                <div >
                     {this.props.children}
-                </div>
+                
             </div>
         </CheeseburgerMenu>
         );
