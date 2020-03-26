@@ -18,7 +18,12 @@
 
 import React from 'react';
 import './footer.css';
-
+import {
+    Link, 
+    Router, 
+    Route, 
+    Switch,
+    } from 'react-router-dom';
 
 export default class Footer extends React.Component {
 
@@ -27,15 +32,23 @@ export default class Footer extends React.Component {
     render() {
         return (
             <div className="footer_container">
+               
+                    <div className="footer_inner">
+                        <div className="footer_list_item footer_left">
+                            Impact LGBTQ+ Website
+                        </div>
+                        <div className="footer_list_item footer_stack footer_right">
+                            <div>
+                                Copyright © 2020 Natasha England-Elbro under the GNU GPLv3
+                            </div>
+                            <div>
+                                <Link to="/LICENSE">View License</Link>
+                            </div>
+                        </div>
+                    </div>
+                   
 
-                <div className="footer_inner">
-                    <div className="footer_list_item">
-                        Impact LGBTQ+ Website
-                    </div>
-                    <div className="footer_list_item">
-                        Copyright © 2020 Natasha England-Elbro under the GNU GPLv3
-                    </div>
-                </div>
+                
             </div>
         );
     }

@@ -26,9 +26,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
+import License from './License';
 import WhoAreWe from './page/WhoAreWe';
 import FAQPage from './page/FAQPage';
 import WhatsOn from './page/WhatsOn';
@@ -69,7 +69,9 @@ function App() {
                 {user.logout()}
                 <Redirect to="/home" />
               </Route>
-
+              <Route path="/LICENSE">
+                  <License />
+              </Route>
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
