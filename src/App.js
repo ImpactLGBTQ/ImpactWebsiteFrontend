@@ -34,6 +34,7 @@ import FAQPage from './page/FAQPage';
 import WhatsOn from './page/WhatsOn';
 import Signposting from './page/Signposting';
 import Footer from './footer/Footer';
+import RouteScrollTop from './RouteScrollTop';
 
 function App() {
 
@@ -69,9 +70,9 @@ function App() {
                 {user.logout()}
                 <Redirect to="/home" />
               </Route>
-              <Route path="/LICENSE">
+              <RouteScrollTop path="/LICENSE">
                   <License />
-              </Route>
+              </RouteScrollTop>
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
