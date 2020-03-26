@@ -74,8 +74,9 @@ function App() {
                 <Redirect to="/home" />
               </Route>
             </Switch>
-            <Footer />
         </div>
+        <Footer />
+
       </Router>
       </div>
   );

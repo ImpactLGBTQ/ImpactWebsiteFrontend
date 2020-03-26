@@ -27,15 +27,14 @@ export default class Footer extends React.Component {
     render() {
         return (
             <div className="footer_container">
-                <div className="footer_innter">
-                <table>
-                    <tr className="footer_list_item">
+
+                <div className="footer_inner">
+                    <div className="footer_list_item">
                         Impact LGBTQ+ Website
-                    </tr>
-                    <tr className="footer_list_item">
+                    </div>
+                    <div className="footer_list_item">
                         Copyright © 2020 Natasha England-Elbro under the GNU GPLv3
-                    </tr>
-                </table>
+                    </div>
                 </div>
             </div>
         );
