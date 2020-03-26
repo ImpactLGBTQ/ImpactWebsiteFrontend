@@ -1,4 +1,11 @@
 import * as React from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+
 import Button from './TitleButton';
 import {render} from "react-dom";
 import MainPage from "../page/MainPage";
@@ -13,9 +20,10 @@ import User from "../User";
 import UserDropdown from "./UserDropdown";
 import WhatsOn from "../page/WhatsOn";
 
+
 export function to_page(page) {
     // Call an api here to get content
-    render(page, document.getElementById(MainPage.getId()));
+    //render(page, document.getElementById(MainPage.getId()));
 }
 
 
@@ -49,12 +57,13 @@ export default class TitleBar extends React.Component {
               </div>
               <div className="header_bar_inner" id="header_btns_container">
                   <nav className="navbar navbar-expand-lg navbar-nav">
-                      <Button onClick={() => to_page(<HomePage />)} text="Home" />
+                      <Button onClick="/home" text="Home" />
                       <Button onClick={() => to_page(<WhoAreWe />)} text="Who are we" />
                       <Button onClick="find_us()" text="Find us" />
                       <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
                       <Button onClick={() => to_page(<WhatsOn user={this.props.user}/>)} text="Whats on" />
                       <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
+                    
                   </nav>
                   <div>
                     <UserDropdown user={this.props.user} />

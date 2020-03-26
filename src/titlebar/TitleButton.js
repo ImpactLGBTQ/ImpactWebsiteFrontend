@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link} from "react-router-dom";
 
 export default class TitleButton extends React.Component {
 
@@ -6,7 +7,7 @@ export default class TitleButton extends React.Component {
 
     render() {
         return (
-            <button className="header_btn" onClick={this.props.onClick}>{this.props.text}</button>
+            <Link className="header_btn" to={this.props.onClick}>{this.props.text}</Link>
         );
     }
 

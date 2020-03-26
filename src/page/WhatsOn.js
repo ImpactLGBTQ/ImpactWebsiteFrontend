@@ -13,9 +13,9 @@ import CONFIG from '../config.js';
 
 
 // Fetches posts asyncthorusly from the backend
-function getPosts(user, num, successCallback, errorCallback) {
+function getPosts(user, start, num, successCallback, errorCallback) {
     $.ajax({
-        url: CONFIG['backend_url']+"/api/posting/get/"+num,
+        url: CONFIG['backend_url']+"/api/posting/get/"+start+"/"+num,
         //crossdomain: true,
         headers: user.getAuthHeader(),
         success: successCallback,
@@ -93,7 +93,7 @@ class WhatsOn extends MainPage {
         };
         this.postsCallback = this.postsCallback.bind(this);
         this.addPost = this.addPost.bind(this);
-        getPosts(props.user, 10,this.postsCallback )
+        getPosts(props.user, 0, 10,this.postsCallback )
 
     }
 
@@ -117,7 +117,9 @@ class WhatsOn extends MainPage {
 
     render() {
         return (
-            <>  <div>
+            <>  
+                <div><h5>Displaying {this.state.posts.length} posts</h5></div>
+                <div>
                     {this.state.posts.map(function(post, index) {
                         return (<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author_id} />);
                     })}
