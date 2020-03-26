@@ -46,9 +46,9 @@ class Sidebar extends React.Component {
     }
 
 
-
     render() {
         return(
+        
         <CheeseburgerMenu width={200} isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
             <div className="menu_container">
                 <br />
@@ -57,6 +57,7 @@ class Sidebar extends React.Component {
                 </div>
             </div>
         </CheeseburgerMenu>
+        
         );
     }
 
@@ -89,9 +90,9 @@ export default class TitleBar extends React.Component {
     }
 
     render() {
-        const height = $(window).height();
+       // const height = $(window).height();
         const width = $(window).width();
-        const isSmall = (width < 1200);
+        const isSmall = (width < 1150);
         const expandedBtns = (
             <>
             <Button onClick="/faq" text="LGBTQ+ FAQ" />
@@ -109,6 +110,8 @@ export default class TitleBar extends React.Component {
                     </Sidebar>
                 </div>
             }
+                
+            
             <div>{
                 !isSmall && 
                 <div className="header_bar_inner head_bar_upper" id="title_container">
