@@ -40,23 +40,21 @@ class Sidebar extends React.Component {
         document.addEventListener('keydown', (event) => {
             const key = event.key; 
             if (key === "Escape") {
-                this.setState({isOpen: false})
+                this.props.closeCallback()
             }
         });
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({isOpen: newProps.isOpen})
     }
 
 
 
     render() {
         return(
-        <CheeseburgerMenu isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
+        <CheeseburgerMenu width={200} isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
             <div className="menu_container">
-                    {this.props.children}
-                
+                <br />
+                <div>
+                {this.props.children}
+                </div>
             </div>
         </CheeseburgerMenu>
         );
@@ -93,7 +91,7 @@ export default class TitleBar extends React.Component {
     render() {
         const height = $(window).height();
         const width = $(window).width();
-        const isSmall = (height < 600 || width < 1200);
+        const isSmall = (width < 1200);
         const expandedBtns = (
             <>
             <Button onClick="/faq" text="LGBTQ+ FAQ" />
@@ -127,7 +125,7 @@ export default class TitleBar extends React.Component {
                         this.setState({menu_open: toggled});}}/>
                 
                 }
-                    <div className="header_bar_inner header_btn_row">
+                    <div className={isSmall ? "header_bar_inner header_btn_row" : "header_bar_inner"}>
                             <Button onClick="/home" text="Home" />
                             <Button onClick="/about" text={isSmall ? "About" : "Who are we"} />
                             <Button onClick="" text="Find us" />
@@ -139,7 +137,7 @@ export default class TitleBar extends React.Component {
                       </div>
                 </div>
                 {!isSmall && 
-                <div className="header_bar_inner header_btn_row">
+                <div className={"header_bar_inner"}>
                     <UserDropdown user={this.props.user} />
                 </div>
                 }
