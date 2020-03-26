@@ -1,24 +1,10 @@
 import * as React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
-
 import Button from './TitleButton';
-import {render} from "react-dom";
-import MainPage from "../page/MainPage";
-import HomePage from "../page/HomePage";
 import "./title_bar.css";
-import FAQPage from "../page/FAQPage";
-import WhoAreWe from "../page/WhoAreWe";
-import Signposting from "../page/Signposting";
 import PropTypes from 'prop-types'
 import get_csrf from "../csrf";
 import User from "../User";
 import UserDropdown from "./UserDropdown";
-import WhatsOn from "../page/WhatsOn";
 
 
 export function to_page(page) {
@@ -50,26 +36,26 @@ export default class TitleBar extends React.Component {
     render() {
         return (
             <div>
-              <div className="header_bar_inner" id="title_container">
+              <div className="header_bar_inner head_bar_upper" id="title_container">
                   <h3 className="header_text" >Impact LGBTQ+</h3>
                   <h4 className="header_text">A group where LGBTQ+ young people can be
                       themselves</h4>
               </div>
-              <div className="header_bar_inner" id="header_btns_container">
-                  <nav className="navbar navbar-expand-lg navbar-nav">
+              <div className="header_bar_inner head_bar_upper" id="header_btns_container">
+                <div className="header_bar_inner">
                       <Button onClick="/home" text="Home" />
                       <Button onClick="/about" text="Who are we" />
                       <Button onClick="find_us()" text="Find us" />
                       <Button onClick="/faq" text="LGBTQ+ FAQ" />
                       <Button onClick="/events" text="Whats on" />
                       <Button onClick="/signposting" text="Signposting" />
-                    
-                  </nav>
-                  <div>
+                </div>
+                <div className="header_bar_inner">
                     <UserDropdown user={this.props.user} />
-                  </div>
-              </div>
+                
+                </div>
             </div>
+        </div>
         );
     }
 

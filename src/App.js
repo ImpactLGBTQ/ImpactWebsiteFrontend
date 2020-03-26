@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import TitleBar from './titlebar/TitleBar';
 import HomePage from "./page/HomePage";
+import LoginPage from "./page/LoginPage"
 import User from "./User";
 import {
   BrowserRouter as Router,
@@ -44,7 +45,15 @@ function App() {
               <Route path="/signposting">
                 <Signposting />
               </Route>
-              <Route path="/">
+              <Route path="/login">
+                <LoginPage user={user} />
+              </Route>
+              <Route path="/logout">
+                {user.logout()}
+                <Redirect to="/home" />
+              </Route>
+
+              <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
             </Switch>

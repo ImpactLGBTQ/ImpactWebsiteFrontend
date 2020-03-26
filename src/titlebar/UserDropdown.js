@@ -36,26 +36,14 @@ class UserDropdown extends React.Component {
 
     render() {
         if (this.state.logged_in) {
-            return (
-                <DropdownButton className="header_btn" title={this.state.user_username} id="dropdown-user-info-btn">
-
-                    <Dropdown.Item>
-                        Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => to_page(<MakeAPost />)}>
-                        Make a post
-                    </Dropdown.Item>
-
-                    <Dropdown.Divider />
-
-                    <Dropdown.Item onClick={() => this.state.user.logout()} >
-                        Logout
-                    </Dropdown.Item>
-
-                </DropdownButton>
+            return (<>
+                <h3>{this.state.user.getUsername()}</h3><Button text="Logout" onClick="/logout" />
+                </>
             );
         }
-        else return (<Button onClick={() => to_page(<LoginPage user={this.state.user} />)} text="Login" />);
+        else return (
+        <Button onClick="/login" text="Login" />);
+        
 
     }
 
