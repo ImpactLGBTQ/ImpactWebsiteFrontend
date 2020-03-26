@@ -7,7 +7,9 @@
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "cheeseburger-menu": "^0.0.13",
     "eslint-plugin-flowtype": "^4.7.0",
+    "hamburger-react": "^1.2.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
     "prop-types": "^15.7.2",
@@ -18,8 +20,7 @@
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "stylus": "^0.54.7",
-    "cheeseburger-menu": "^0.0.13"
+    "stylus": "^0.54.7"
   },
   "scripts": {
     "stylus": "stylus -w src/*/*.styl",

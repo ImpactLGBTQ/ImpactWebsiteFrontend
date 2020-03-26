@@ -24,11 +24,54 @@ import User from "../User";
 import UserDropdown from "./UserDropdown";
 import $ from 'jquery';
 import CheeseburgerMenu from 'cheeseburger-menu'
+import { Sling as Hamburger } from 'hamburger-react'
 
 export function to_page(page) {
     // Call an api here to get content
     //render(page, document.getElementById(MainPage.getId()));
 }
+
+
+class Sidebar extends React.Component {
+
+    constructor(props) {
+        super(props)
+        // Register escape handler
+        document.addEventListener('keydown', (event) => {
+            const key = event.key; 
+            if (key === "Escape") {
+                this.setState({isOpen: false})
+            }
+        });
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({isOpen: newProps.isOpen})
+    }
+
+
+
+    render() {
+        return(
+        <CheeseburgerMenu isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
+            <div className="menu_container">
+                <div  >
+                    <Hamburger toggled={this.props.isOpen} toggle={this.props.isOpen} id="sidebar_close_btn" className="header_btn" onToggle={toggled => {
+                    this.props.closeCallback();}}/>
+                </div>
+                <div >
+                    {this.props.children}
+                </div>
+            </div>
+        </CheeseburgerMenu>
+        );
+    }
+
+}
+
+Sidebar.propTypes = {
+    isOpen: PropTypes.bool,
+};
 
 
 export default class TitleBar extends React.Component {
@@ -58,18 +101,19 @@ export default class TitleBar extends React.Component {
         const isSmall = (height < 600 || width < 1200);
         const expandedBtns = (
             <>
-            <Button onClick="/faq" className="menu-item" text="LGBTQ+ FAQ" />
-            <Button onClick="/events" className="menu-item" text="Whats on" />
-            <Button onClick="/signposting" className="menu-item" text="Signposting" />
+            <Button onClick="/faq" text="LGBTQ+ FAQ" />
+            <Button onClick="/events" text="Whats on" />
+            <Button onClick="/signposting"  text="Signposting" />
             </>
         );
         return (
             <>
             { isSmall && 
                 <div className="bm-wrapper-bar">
-                <CheeseburgerMenu isOpen={this.state.menu_open} closeCallback={()=>{}} >
-                            {expandedBtns}
-                </CheeseburgerMenu>
+                    <Sidebar isOpen={this.state.menu_open} closeCallback={()=>this.setState({menu_open: false})}>
+                        {expandedBtns}
+                        <UserDropdown user={this.props.user} />
+                    </Sidebar>
                 </div>
             }
             <div>{
@@ -84,33 +128,26 @@ export default class TitleBar extends React.Component {
               <div className="header_bar_inner head_bar_upper" id="header_btns_container">
                 <div className="header_bar_inner">  
                 {isSmall && 
-                
-                    <button className="header_btn" onClick={()=>{
-                        this.setState({
-                            menu_open: true,
-                        })
-                    }}>Menu</button>
+                        <Hamburger toggled={this.state.menu_open} toggle={this.state.menu_open} id="sidebar_close_btn" className="header_btn" onToggle={toggled => {
+                        this.setState({menu_open: toggled});}}/>
                 
                 }
-                      <Button onClick="/home" text="Home" />
-                      <Button onClick="/about" text={isSmall ? "About" : "Who are we"} />
-                      <Button onClick="" text="Find us" />
+                    <div className="header_bar_inner header_btn_row">
+                            <Button onClick="/home" text="Home" />
+                            <Button onClick="/about" text={isSmall ? "About" : "Who are we"} />
+                            <Button onClick="" text="Find us" />
                       
                       {!isSmall &&
-                      // Smaller devices get a hamburger menu
-                      
-                        
-                        
-                      
                       // Larger devices see the whole options row
                       expandedBtns
                       }
-                      
+                      </div>
                 </div>
-                <div className="header_bar_inner">
+                {!isSmall && 
+                <div className="header_bar_inner header_btn_row">
                     <UserDropdown user={this.props.user} />
-                
                 </div>
+                }
             </div>
         </div>
         </>
