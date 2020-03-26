@@ -35,53 +35,74 @@ import WhatsOn from './page/WhatsOn';
 import Signposting from './page/Signposting';
 import Footer from './footer/Footer';
 import RouteScrollTop from './RouteScrollTop';
+//import { slide as Menu } from 'react-burger-menu'
+/*
+const AppContext = React.createContext();
+const AppProvider = (props) {
+  const [menuOpenState, setMenuOpenState] = useState(false);
+  return (
+    <AppContext.Provider value={{
+      isMenuOpen: menuOpenState,
+      toggleMenu: () => setMenuOpenState(!menuOpenState),
+      stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen)
+    }}>
+      {props.children}
+    </AppContext.Provider>
+  );
+}
+
+*/
+
 
 function App() {
 
   const user = new User();
   return (
-      <div>
-      <Router>
-        <div className="header_bar_container" id="header_container">
-          <TitleBar user={user}/>
-        </div>
-          <div className="body" id={HomePage.getId()}>
-          <Switch>
-             
-              <Route path="/home">
-                <HomePage />
-              </Route>
-              <Route path="/about">
-                <WhoAreWe />
-              </Route>
-              <Route path="/faq">
-                <FAQPage />
-              </Route>
-              <Route path="/events">
-                <WhatsOn user={user} />
-              </Route>
-              <Route path="/signposting">
-                <Signposting />
-              </Route>
-              <Route path="/login">
-                <LoginPage user={user} />
-              </Route>
-              <Route path="/logout">
-                {user.logout()}
-                <Redirect to="/home" />
-              </Route>
-              <RouteScrollTop path="/LICENSE">
-                  <License />
-              </RouteScrollTop>
-              <Route exact path="/">
-                <Redirect to="/home" />
-              </Route>
-            </Switch>
-        </div>
-        <Footer />
-
-      </Router>
+    <div>
+    <Router>
+      <div className="header_bar_container" id="header_container">
+        <TitleBar user={user} />
       </div>
+      <div className="body_container">
+
+        <div className="body" id={HomePage.getId()}>
+        <Switch>
+           
+            <Route path="/home">
+              <HomePage />
+            </Route>
+            <Route path="/about">
+              <WhoAreWe />
+            </Route>
+            <Route path="/faq">
+              <FAQPage />
+            </Route>
+            <Route path="/events">
+              <WhatsOn user={user} />
+            </Route>
+            <Route path="/signposting">
+              <Signposting />
+            </Route>
+            <Route path="/login">
+              <LoginPage user={user} />
+            </Route>
+            <Route path="/logout">
+              {user.logout()}
+              <Redirect to="/home" />
+            </Route>
+            <RouteScrollTop path="/LICENSE">
+
+                <License />
+            </RouteScrollTop>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </Switch>
+      </div>
+    </div>
+    <Footer />
+    </Router>
+    </div>
   );
 }
 

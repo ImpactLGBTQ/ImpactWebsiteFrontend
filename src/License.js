@@ -18,6 +18,8 @@
 import React from 'react'
 
 
+
+
 export default function License() {
     return (<>
         <h3 id="gnu-general-public-license">GNU GENERAL PUBLIC LICENSE</h3>

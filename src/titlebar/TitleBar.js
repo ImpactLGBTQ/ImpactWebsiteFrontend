@@ -22,7 +22,8 @@ import PropTypes from 'prop-types'
 import get_csrf from "../csrf";
 import User from "../User";
 import UserDropdown from "./UserDropdown";
-
+import $ from 'jquery';
+import CheeseburgerMenu from 'cheeseburger-menu'
 
 export function to_page(page) {
     // Call an api here to get content
@@ -37,6 +38,7 @@ export default class TitleBar extends React.Component {
 
         this.state = {
             csrf_token: null,
+            menu_open: false,
         };
 
         // set csrf token
@@ -51,21 +53,59 @@ export default class TitleBar extends React.Component {
     }
 
     render() {
+        const height = $(window).height();
+        const width = $(window).width();
+        const isSmall = (height < 600 || width < 1200);
+        const expandedBtns = (
+            <>
+            <Button onClick="/faq" className="menu-item" text="LGBTQ+ FAQ" />
+            <Button onClick="/events" className="menu-item" text="Whats on" />
+            <Button onClick="/signposting" className="menu-item" text="Signposting" />
+            </>
+        );
         return (
-            <div>
-              <div className="header_bar_inner head_bar_upper" id="title_container">
+            <>
+            { isSmall && 
+                <div className="bm-wrapper-bar">
+                <CheeseburgerMenu isOpen={this.state.menu_open} closeCallback={()=>{}} >
+                            {expandedBtns}
+                </CheeseburgerMenu>
+                </div>
+            }
+            <div>{
+                !isSmall && 
+                <div className="header_bar_inner head_bar_upper" id="title_container">
                   <h3 className="header_text" >Impact LGBTQ+</h3>
                   <h4 className="header_text">A group where LGBTQ+ young people can be
                       themselves</h4>
-              </div>
+                </div>
+            }
+              
               <div className="header_bar_inner head_bar_upper" id="header_btns_container">
-                <div className="header_bar_inner">
+                <div className="header_bar_inner">  
+                {isSmall && 
+                
+                    <button className="header_btn" onClick={()=>{
+                        this.setState({
+                            menu_open: true,
+                        })
+                    }}>Menu</button>
+                
+                }
                       <Button onClick="/home" text="Home" />
-                      <Button onClick="/about" text="Who are we" />
+                      <Button onClick="/about" text={isSmall ? "About" : "Who are we"} />
                       <Button onClick="" text="Find us" />
-                      <Button onClick="/faq" text="LGBTQ+ FAQ" />
-                      <Button onClick="/events" text="Whats on" />
-                      <Button onClick="/signposting" text="Signposting" />
+                      
+                      {!isSmall &&
+                      // Smaller devices get a hamburger menu
+                      
+                        
+                        
+                      
+                      // Larger devices see the whole options row
+                      expandedBtns
+                      }
+                      
                 </div>
                 <div className="header_bar_inner">
                     <UserDropdown user={this.props.user} />
@@ -73,6 +113,7 @@ export default class TitleBar extends React.Component {
                 </div>
             </div>
         </div>
+        </>
         );
     }
 

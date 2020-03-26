@@ -54,13 +54,19 @@
     height 100%
     padding-bottom 3px
 
-    a:active, a:focus {
+    .bm-wrapper-bar {
+      width 100%  
+      height 100%
+
+    }
+
+    .header_btn:active, a:focus {
       outline: 0;
       border: none;
       -moz-outline-style: none;
     }
 
-    a {
+    .header_btn {
       text-decoration: none;
       height 100%
       position relative
@@ -71,24 +77,30 @@
       border-radius 3px
       background-color transparent
     }
-    a:hover {
+    .header_btn:hover {
       //background dark-violet
       border-radius 5px
       transform scale(1.1)
     }
 
-    a:after {
+    .header_btn:after {
       display block
       content ' '
       border-bottom 3px solid light-placid-blue
       transform scaleX(0)
       transition transform 250ms ease-in-out
     }
-    a:hover:after {
+    .header_btn:hover:after {
       transform scaleX(1)
     }
 
   }
+}
+
+.bm-burger-button {
+  position: fixed;
+  height 100%
+  width 100%
 }
 
 
