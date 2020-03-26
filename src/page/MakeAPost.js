@@ -1,8 +1,25 @@
+// Copyright (C) 2020 Natasha England-Elbro
+// 
+// This file is part of ImpactWebsiteFrontend.
+// 
+// ImpactWebsiteFrontend is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// ImpactWebsiteFrontend is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
+
 import * as React from 'react';
 import $ from 'jquery';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import CONFIG from '../config';
 export class PostForm extends React.Component {
 
     constructor(props) {
@@ -60,15 +77,18 @@ export class PostForm extends React.Component {
         const data = {"title": title, "content": content,
             "type": value_index, "access_level": access_index};
         // Send ajax request
+        const url = CONFIG['backend_url']+"/api/posting/new/";
         $.ajax({
-            url: "http://localhost:8000/api/posting/new/",
+            url: url,
             headers: this.props.user ? this.props.user.getAuthHeader() : null,
             type: "POST",
             dataType: 'json',
             data: JSON.stringify(data),
             success: (data) => {
-                if (this.props.new_post_callback) this.props.new_post_callback(title, content, data['uuid']);
-            }
+                this.props.new_post_callback(title, content, data['uuid']);
+            },
+            error: (xhr, code, err) => console.error("Failed to add a new post: "+err+"\nURL: "+url+"\nCODE: "+code
+            +"\nReponse Text: "+xhr.responseText + "\nDATA: "+JSON.stringify(data))
         });
     }
 

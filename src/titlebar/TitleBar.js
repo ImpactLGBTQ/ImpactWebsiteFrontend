@@ -1,22 +1,71 @@
+// Copyright (C) 2020 Natasha England-Elbro
+// 
+// This file is part of ImpactWebsiteFrontend.
+// 
+// ImpactWebsiteFrontend is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// ImpactWebsiteFrontend is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
+
 import * as React from "react";
 import Button from './TitleButton';
-import {render} from "react-dom";
-import MainPage from "../page/MainPage";
-import HomePage from "../page/HomePage";
 import "./title_bar.css";
-import FAQPage from "../page/FAQPage";
-import WhoAreWe from "../page/WhoAreWe";
-import Signposting from "../page/Signposting";
 import PropTypes from 'prop-types'
 import get_csrf from "../csrf";
 import User from "../User";
 import UserDropdown from "./UserDropdown";
-import WhatsOn from "../page/WhatsOn";
+import $ from 'jquery';
+import CheeseburgerMenu from 'cheeseburger-menu'
+import { Sling as Hamburger } from 'hamburger-react'
 
 export function to_page(page) {
     // Call an api here to get content
-    render(page, document.getElementById(MainPage.getId()));
+    //render(page, document.getElementById(MainPage.getId()));
 }
+
+
+class Sidebar extends React.Component {
+
+    constructor(props) {
+        super(props)
+        // Register escape handler
+        document.addEventListener('keydown', (event) => {
+            const key = event.key; 
+            if (key === "Escape") {
+                this.props.closeCallback()
+            }
+        });
+    }
+
+
+    render() {
+        return(
+        
+        <CheeseburgerMenu width={200} isOpen={this.props.isOpen} closeCallback={()=>{ this.props.closeCallback && this.props.closeCallback() }} >
+            <div className="menu_container">
+                <br />
+                <div>
+                {this.props.children}
+                </div>
+            </div>
+        </CheeseburgerMenu>
+        
+        );
+    }
+
+}
+
+Sidebar.propTypes = {
+    isOpen: PropTypes.bool,
+};
 
 
 export default class TitleBar extends React.Component {
@@ -26,6 +75,7 @@ export default class TitleBar extends React.Component {
 
         this.state = {
             csrf_token: null,
+            menu_open: false,
         };
 
         // set csrf token
@@ -40,27 +90,63 @@ export default class TitleBar extends React.Component {
     }
 
     render() {
+       // const height = $(window).height();
+        const width = $(window).width();
+        const isSmall = (width < 1150);
+        const expandedBtns = (
+            <>
+            <Button onClick="/faq" text="LGBTQ+ FAQ" />
+            <Button onClick="/events" text="Whats on" />
+            <Button onClick="/signposting"  text="Signposting" />
+            </>
+        );
         return (
-            <div>
-              <div className="header_bar_inner" id="title_container">
+            <>
+            { isSmall && 
+                <div className="bm-wrapper-bar">
+                    <Sidebar isOpen={this.state.menu_open} closeCallback={()=>this.setState({menu_open: false})}>
+                        {expandedBtns}
+                        <UserDropdown user={this.props.user} />
+                    </Sidebar>
+                </div>
+            }
+                
+            
+            <div>{
+                !isSmall && 
+                <div className="header_bar_inner head_bar_upper" id="title_container">
                   <h3 className="header_text" >Impact LGBTQ+</h3>
                   <h4 className="header_text">A group where LGBTQ+ young people can be
                       themselves</h4>
-              </div>
-              <div className="header_bar_inner" id="header_btns_container">
-                  <nav className="navbar navbar-expand-lg navbar-nav">
-                      <Button onClick={() => to_page(<HomePage />)} text="Home" />
-                      <Button onClick={() => to_page(<WhoAreWe />)} text="Who are we" />
-                      <Button onClick="find_us()" text="Find us" />
-                      <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
-                      <Button onClick={() => to_page(<WhatsOn user={this.props.user}/>)} text="Whats on" />
-                      <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
-                  </nav>
-                  <div>
+                </div>
+            }
+              
+              <div className="header_bar_inner head_bar_upper" id="header_btns_container">
+                <div className="header_bar_inner">  
+                {isSmall && 
+                        <Hamburger toggled={this.state.menu_open} toggle={this.state.menu_open} id="sidebar_close_btn" className="header_btn" onToggle={toggled => {
+                        this.setState({menu_open: toggled});}}/>
+                
+                }
+                    <div className={isSmall ? "header_bar_inner header_btn_row" : "header_bar_inner"}>
+                            <Button onClick="/home" text="Home" />
+                            <Button onClick="/about" text={isSmall ? "About" : "Who are we"} />
+                            <Button onClick="" text="Find us" />
+                      
+                      {!isSmall &&
+                      // Larger devices see the whole options row
+                      expandedBtns
+                      }
+                      </div>
+                </div>
+                {!isSmall && 
+                <div className={"header_bar_inner"}>
                     <UserDropdown user={this.props.user} />
-                  </div>
-              </div>
+                </div>
+                }
             </div>
+        </div>
+        </>
         );
     }
 

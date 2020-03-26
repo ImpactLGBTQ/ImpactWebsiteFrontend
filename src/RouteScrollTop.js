@@ -15,27 +15,31 @@
 // You should have received a copy of the GNU General Public License
 // along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
 
-import * as React from "react";
-import {render} from "react-dom";
+import React from 'react';
+import {Route, withRouter} from 'react-router-dom';
+import $ from 'jquery';
 
-class MainPage extends React.Component {
 
-    getContent() {}
+class RouteScrollTop extends React.Component {
 
-    static getId() {
-        return 'body_container';
+    componentDidUpdate(prevProps) {
+        // Scroll if the path has changed
+
+        if (this.props.path === this.props.location.pathname && this.props.location.pathname !== prevProps.location.pathname) {
+          //  window.scrollTo(0, 0);
+          }
     }
 
     render() {
-        const content = this.getContent();
-        const html_page = (<div id={MainPage.getId()}>{content}</div>);
-        return html_page;
+        // Pass through props
+        const { component: Component, ...rest } = this.props;
+        $('html,body').animate({ scrollTop: 0 });
+        return (
+            <Route {...rest} render={props => (<Component {...props} />)} />
+        );
     }
 
 }
 
-
-
-export default MainPage;
-
+export default withRouter(RouteScrollTop);
 

@@ -1,3 +1,20 @@
+// Copyright (C) 2020 Natasha England-Elbro
+// 
+// This file is part of ImpactWebsiteFrontend.
+// 
+// ImpactWebsiteFrontend is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// ImpactWebsiteFrontend is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
+
 @require "../colours.styl"
 
 .header_text {
@@ -8,6 +25,13 @@
   padding-top 10px
   color tilliumn-silver
 }
+.menu_container {
+  background-color: light-grey
+  height: 100%
+  width 100%
+}
+
+
 
 .header_bar_container {
   background-color light-grey
@@ -19,46 +43,66 @@
   flex-direction column
   justify-content space-between
   width 100%
-  position: fixed;
+  //position: fixed;
   z-index 1000 // Rediculusly high because bootstrap
 
+  .head_bar_upper {
+    
+    padding-left 30px
+    padding-right 30px  
+    
+  }
   .header_bar_inner {
     display flex
     flex-direction row
     justify-content space-between
     position relative
-    padding-left 30px
-    padding-right 30px
+
     height 100%
     padding-bottom 3px
-
-    button {
-      height 100%
-      position relative
-      background none
-      border none
-      color seline-smoke
-      border-radius 3px
-      background-color transparent
-    }
-    button:hover {
-      //background dark-violet
-      border-radius 5px
-      transform scale(1.1)
-    }
-
-    button:after {
-      display block
-      content ' '
-      border-bottom 3px solid light-placid-blue
-      transform scaleX(0)
-      transition transform 250ms ease-in-out
-    }
-    button:hover:after {
-      transform scaleX(1)
-    }
+    
 
   }
+}
+
+.header_btn_row {
+  transform: translateY(+50%)
+}
+
+.header_btn:active, .header_btn:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none;
+}
+
+.header_btn {
+  text-decoration: none;
+  height 100%
+  position relative
+  background none
+  border none
+  margin 0 8px 0 8px
+  color seline-smoke
+  border-radius 3px
+  background-color transparent
+}
+.header_btn:hover {
+  //background dark-violet
+  border-radius 5px
+  color light-placid-blue
+  text-decoration: none
+  transform scale(1.1)
+}
+
+.header_btn:after {
+  display block
+  content ' '
+  border-bottom 3px solid light-placid-blue
+  transform scaleX(0)
+  transition transform 250ms ease-in-out
+}
+.header_btn:hover:after {
+  transform scaleX(1)
 }
 
 
@@ -66,14 +110,6 @@
   color black
 }
 
-#title_container {
-  @media only screen and (max-width 600px) {
-    display none
-    height 0
-    width 0
-    margin 0
-    padding 0
-  }
-}
+
 
 

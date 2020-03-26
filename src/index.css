@@ -28,18 +28,25 @@
 a {
   color: link-colour;
 }
-.body {
+.body_container {
+  display: flex;
+  flex-direction: row;
+}
+.body_container .body {
   padding-top: 110px;
   margin-left: 25%;
   margin-right: 25%;
   width: 50%;
 }
 @media only screen and (max-width: 600px) {
-  .body {
+  .body_container .body {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
   }
+}
+.body_container .scrollbar {
+  position: fixed;
 }
 .form_btn {
   margin-top: 35px;

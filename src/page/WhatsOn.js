@@ -1,3 +1,20 @@
+// Copyright (C) 2020 Natasha England-Elbro
+// 
+// This file is part of ImpactWebsiteFrontend.
+// 
+// ImpactWebsiteFrontend is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// ImpactWebsiteFrontend is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
+
 import * as React from "react";
 import MainPage from "./MainPage";
 import $ from 'jquery';
@@ -13,9 +30,9 @@ import CONFIG from '../config.js';
 
 
 // Fetches posts asyncthorusly from the backend
-function getPosts(user, num, successCallback, errorCallback) {
+function getPosts(user, start, num, successCallback, errorCallback) {
     $.ajax({
-        url: CONFIG['backend_url']+"/api/posting/get/"+num,
+        url: CONFIG['backend_url']+"/api/posting/get/"+start+"/"+num,
         //crossdomain: true,
         headers: user.getAuthHeader(),
         success: successCallback,
@@ -58,7 +75,7 @@ class Post extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    { (this.props.author_id == this.props.uuid) &&
+                    { (this.props.author_id === this.props.uuid) &&
                         // Delete abilities
                         <Col>
                             <Button onClick={this.deleteSelf}>Delete</Button>
@@ -89,10 +106,11 @@ class WhatsOn extends MainPage {
         super(props);
 
         this.state = {
-            posts: null,
+            posts: [],
         };
         this.postsCallback = this.postsCallback.bind(this);
-        getPosts(props.user, 10,this.postsCallback )
+        this.addPost = this.addPost.bind(this);
+        getPosts(props.user, 0, 10,this.postsCallback )
 
     }
 
@@ -102,24 +120,29 @@ class WhatsOn extends MainPage {
 
         for (let i = 0; i < data.length; i++) {
             const post = data[i];
-            posts.push(<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author} />);
+            posts.push({"title": post.title, "content": post.content, "author_name": post.author_name, "author_id": post.author, "uuid": post.uuid});
         }
-
         this.setState({
             posts: posts
         });
     };
+    addPost(title, content, uuid) {
+        this.state.posts.push({"title": title, "content": content, "author_name": this.props.user.getUsername(), "author_id": this.props.user.getUUID(), "uuid": uuid})
+        // Trigger a re-render
+        this.forceUpdate();
+    }
 
     render() {
         return (
-            <>
-                {this.state.posts}
+            <>  
+                <div><h5>Displaying {this.state.posts.length} posts</h5></div>
+                <div>
+                    {this.state.posts.map(function(post, index) {
+                        return (<Post title={post.title} content={post.content} author_name={post.author_name} uuid={post.uuid} author_id={post.author_id} />);
+                    })}
+                </div>
                 <hr />
-                <PostForm user={this.props.user} new_post_callback={(title, content, uuid) => {
-                    this.setState({
-                        posts: this.state.posts.append(<Post title={title} content={content} uuid={uuid} author_name={this.props.user.getUsername()} author_id={this.props.user.getUUID()} />)
-                    })
-                }}/>
+                <PostForm user={this.props.user} new_post_callback={this.addPost}/>
             </>
         );
     }
