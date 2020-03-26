@@ -16,7 +16,6 @@
 // along with ImpactWebsiteFrontend.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import TitleBar from './titlebar/TitleBar';
@@ -34,6 +33,7 @@ import WhoAreWe from './page/WhoAreWe';
 import FAQPage from './page/FAQPage';
 import WhatsOn from './page/WhatsOn';
 import Signposting from './page/Signposting';
+import Footer from './footer/Footer';
 
 function App() {
 
@@ -74,6 +74,7 @@ function App() {
                 <Redirect to="/home" />
               </Route>
             </Switch>
+            <Footer />
         </div>
       </Router>
       </div>

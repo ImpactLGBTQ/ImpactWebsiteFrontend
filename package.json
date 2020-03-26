@@ -19,7 +19,8 @@
     "stylus": "^0.54.7"
   },
   "scripts": {
-    "start": "stylus -w src/*/*.styl && react-scripts start",
+    "stylus": "stylus -w src/*/*.styl",
+    "start": "react-scripts start",
     "build": "stylus src/*/*.styl && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
