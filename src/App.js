@@ -9,8 +9,13 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
+import WhoAreWe from './page/WhoAreWe';
+import FAQPage from './page/FAQPage';
+import WhatsOn from './page/WhatsOn';
+import Signposting from './page/Signposting';
 
 function App() {
 
@@ -23,13 +28,25 @@ function App() {
         </div>
           <div className="body" id={HomePage.getId()}>
           <Switch>
-              <Route>
+             
+              <Route path="/home">
                 <HomePage />
               </Route>
-              <Route path="/home">
-                  <HomePage />
+              <Route path="/about">
+                <WhoAreWe />
               </Route>
-                    
+              <Route path="/faq">
+                <FAQPage />
+              </Route>
+              <Route path="/events">
+                <WhatsOn user={user} />
+              </Route>
+              <Route path="/signposting">
+                <Signposting />
+              </Route>
+              <Route path="/">
+                <Redirect to="/home" />
+              </Route>
             </Switch>
         </div>
       </Router>

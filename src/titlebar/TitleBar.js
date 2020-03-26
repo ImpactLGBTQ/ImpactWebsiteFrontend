@@ -58,11 +58,11 @@ export default class TitleBar extends React.Component {
               <div className="header_bar_inner" id="header_btns_container">
                   <nav className="navbar navbar-expand-lg navbar-nav">
                       <Button onClick="/home" text="Home" />
-                      <Button onClick={() => to_page(<WhoAreWe />)} text="Who are we" />
+                      <Button onClick="/about" text="Who are we" />
                       <Button onClick="find_us()" text="Find us" />
-                      <Button onClick={() => to_page(<FAQPage />)} text="LGBTQ+ FAQ" />
-                      <Button onClick={() => to_page(<WhatsOn user={this.props.user}/>)} text="Whats on" />
-                      <Button onClick={() => to_page(<Signposting />)} text="Signposting" />
+                      <Button onClick="/faq" text="LGBTQ+ FAQ" />
+                      <Button onClick="/events" text="Whats on" />
+                      <Button onClick="/signposting" text="Signposting" />
                     
                   </nav>
                   <div>
